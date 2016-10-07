@@ -1,6 +1,8 @@
-package ar.edu.unq
+package ar.edu.unq.numbers
 
-class NumberTest extends BaseSpec {
+import ar.edu.unq.BaseSpec
+
+class NumberSpec extends BaseSpec {
 
   "Number 2" should "have value 2" in {
     val two = Number(2)

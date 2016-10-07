@@ -1,5 +1,5 @@
 package ar.edu.unq
 
-class Program {
+class Program(block: Block)
 
-}
+abstract class Block
