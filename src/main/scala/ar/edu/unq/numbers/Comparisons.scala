@@ -1,8 +1,8 @@
 package ar.edu.unq.numbers
 
-import ar.edu.unq.Block
+import ar.edu.unq.Expression
 
-abstract class Comparision(n: Number, m: Number) extends Block
+abstract class Comparision(n: Number, m: Number) extends Expression
 
 case class Equals(n: Number, m: Number) extends Comparision(n, m)
 

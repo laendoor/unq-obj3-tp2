@@ -1,5 +1,16 @@
 package ar.edu.unq
 
-class Program(block: Block)
+import ar.edu.unq.numbers.Number
 
-abstract class Block
+case class Program(e: Expression)
+
+abstract class Expression
+
+object Check {
+  def apply(program: Program): Option[Program] = {
+    program.e match {
+      case n: Number => Some(Program(n))
+      case _ => None
+    }
+  }
+}

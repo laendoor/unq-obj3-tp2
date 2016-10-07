@@ -1,3 +1,5 @@
 package ar.edu.unq.numbers
 
-case class Number(value: Int)
+import ar.edu.unq.Expression
+
+case class Number(value: Int) extends Expression

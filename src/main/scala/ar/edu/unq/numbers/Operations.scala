@@ -1,8 +1,8 @@
 package ar.edu.unq.numbers
 
-import ar.edu.unq.Block
+import ar.edu.unq.Expression
 
-abstract class Operation(n: Number, m: Number) extends Block
+abstract class Operation(n: Number, m: Number) extends Expression
 
 case class Sum(n: Number, m: Number) extends Operation(n, m)
 
