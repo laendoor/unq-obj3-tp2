@@ -1,7 +1,8 @@
-package ar.edu.unq.checkers
+package ar.edu.unq.rules
 
 import ar.edu.unq.numbers.{Number, Sum}
-import ar.edu.unq.{BaseSpec, Checker, Program, Warning}
+import ar.edu.unq.program.{Program, Warning}
+import ar.edu.unq.{BaseSpec, CheckAllRules}
 
 trait CheckerSumOperationSpec extends BaseSpec {
 
@@ -9,13 +10,13 @@ trait CheckerSumOperationSpec extends BaseSpec {
     val sum = Sum(Number(2), Number(3))
     val program = Program(sum :: Nil)
 
-    Checker(program) shouldBe Nil
+    CheckAllRules(program) shouldBe Nil
   }
 
   "Check Sum(Number(2), Number(0))" should "return Warning with message of redundancy" in {
     val sum = Sum(Number(2), Number(0))
     val program = Program(sum :: Nil)
-    val problems = Checker(program)
+    val problems = CheckAllRules(program)
 
     problems.size shouldBe 1
     val problem = problems.head

@@ -1,7 +1,8 @@
-package ar.edu.unq.checkers
+package ar.edu.unq.rules
 
 import ar.edu.unq.numbers.Number
-import ar.edu.unq.{BaseSpec, Checker, Program}
+import ar.edu.unq.program.Program
+import ar.edu.unq.{BaseSpec, CheckAllRules}
 
 trait CheckerNumberSpec extends BaseSpec {
 
@@ -9,7 +10,7 @@ trait CheckerNumberSpec extends BaseSpec {
     val number  = Number(2)
     val program = Program(number :: Nil)
 
-    Checker(program) shouldBe Nil
+    CheckAllRules(program) shouldBe Nil
   }
 
 }
