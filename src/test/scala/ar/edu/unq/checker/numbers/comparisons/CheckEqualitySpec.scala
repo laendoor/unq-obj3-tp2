@@ -1,9 +1,9 @@
-package ar.edu.unq.checker.numbers.operations
+package ar.edu.unq.checker.numbers.comparisons
 
 import ar.edu.unq.BaseSpec
 import ar.edu.unq.numbers.{Number, Sum}
 
-trait CheckerSumOperationSpec extends BaseSpec {
+trait CheckEqualitySpec extends BaseSpec {
 
   "Check Sums" should s"$notContainProblems with valid operands" in {
     expectNoProblemsOnSum(2, 3)

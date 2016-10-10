@@ -10,7 +10,7 @@ object OperationRules {
   }
 
   val subZero: Rule = {
-    case s @Sub(_, Number(0)) => Some(SubZeroProblem(s))
+    case s @Subtraction(_, Number(0)) => Some(SubZeroProblem(s))
     case _ => None
   }
 

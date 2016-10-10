@@ -3,7 +3,7 @@ package ar.edu.unq.checker.numbers.operations
 import ar.edu.unq.BaseSpec
 import ar.edu.unq.numbers.{Multiplication, Number}
 
-trait CheckerMulOperationSpec extends BaseSpec {
+trait CheckMultiplicationSpec extends BaseSpec {
 
   "Check Multiplications" should s"$notContainProblems with valid operands" in {
     expectNoProblemsOnMultiplication(2, 3)

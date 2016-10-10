@@ -1,9 +1,9 @@
 package ar.edu.unq.checker.numbers.operations
 
 import ar.edu.unq.BaseSpec
-import ar.edu.unq.numbers.{Number, Sub}
+import ar.edu.unq.numbers.{Number, Subtraction}
 
-trait CheckerSubOperationSpec extends BaseSpec {
+trait CheckSubtractionSpec extends BaseSpec {
 
   "Check Subtractions" should s"$notContainProblems with valid operands" in {
     expectNoProblemsOnSub(2, 3)
@@ -17,12 +17,12 @@ trait CheckerSubOperationSpec extends BaseSpec {
   }
 
   def expectNoProblemsOnSub(x: Int, y: Int) = {
-    expectNoProblems(Sub(Number(x), Number(y)))
+    expectNoProblems(Subtraction(Number(x), Number(y)))
   }
 
   def expectSubZeroWarning(x: Int, y: Int) = {
     expectWarning(
-      Sub(Number(x), Number(y)),
+      Subtraction(Number(x), Number(y)),
       "Redundant operation: it is subtracting zero"
     )
   }

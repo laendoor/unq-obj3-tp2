@@ -3,7 +3,7 @@ package ar.edu.unq.checker.numbers.operations
 import ar.edu.unq.BaseSpec
 import ar.edu.unq.numbers.{Division, Number}
 
-trait CheckerDivOperationSpec extends BaseSpec {
+trait CheckDivisionSpec extends BaseSpec {
 
   "Check Divisions" should s"$notContainProblems valid operands" in {
     expectNoProblemsOnDivision(4, 2)
