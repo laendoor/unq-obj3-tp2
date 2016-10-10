@@ -20,8 +20,14 @@ object OperationRules {
   }
 
   val multiplyByOne: Rule = {
-    case m@Multiplication(_, Number(1)) => Some(MultiplyByOneProblem(m))
-    case m@Multiplication(Number(1), _) => Some(MultiplyByOneProblem(m))
+    case m @ Multiplication(_, Number(1)) => Some(MultiplyByOneProblem(m))
+    case m @ Multiplication(Number(1), _) => Some(MultiplyByOneProblem(m))
+    case _ => None
+  }
+
+  val multiplyByZero: Rule = {
+    case m @ Multiplication(_, Number(0)) => Some(MultiplyByZeroProblem(m))
+    case m @ Multiplication(Number(0), _) => Some(MultiplyByZeroProblem(m))
     case _ => None
   }
 }

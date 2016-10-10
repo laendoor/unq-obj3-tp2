@@ -15,3 +15,6 @@ case class DivideByZeroProblem(override val expression: Expression) extends Prob
 case class MultiplyByOneProblem(override val expression: Expression) extends Problem(Warning,
     "[Warning] Redundant operation: it is multiplying by one", expression)
 
+case class MultiplyByZeroProblem(override val expression: Expression) extends Problem(Warning,
+    "[Warning] Redundant operation: it is multiplying by zero", expression)
+

@@ -6,5 +6,5 @@ class CheckerSpec extends BaseSpec
   with CheckerNumberSpec
   with CheckerSumOperationSpec
   with CheckerSubOperationSpec
+  with CheckerMulOperationSpec
 //  with CheckerDivOperationSpec
-//  with CheckerMulOperationSpec
