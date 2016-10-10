@@ -19,7 +19,7 @@ case class MultiplyByZeroProblem(mul: Multiplication) extends RedundantOperation
 
 
 // FIXME
-case class ComparisionProblemTrue(override val expression: Expression)
+case class TrueEqualityProblem(override val expression: Expression)
   extends WarningProblem("Redundant operation: this comparison always gives True", expression)
 
 case class ComparisionProblemFalse(override val expression: Expression)

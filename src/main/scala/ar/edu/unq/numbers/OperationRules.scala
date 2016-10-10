@@ -36,11 +36,3 @@ object OperationRules {
     case _ => None
   }
 }
-
-// FIXME
-object EqualesRule{
-  val comparisionProblemBoolean: Rule ={
-    case e @Equals(Number(n),Number(m)) if n ==m => Some(ComparisionProblemTrue(e))
-    case _ => None
-  }
-}
