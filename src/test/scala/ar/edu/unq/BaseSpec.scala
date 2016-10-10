@@ -14,17 +14,16 @@ class BaseSpec extends FlatSpec
     CheckAllRules(program) shouldBe Nil
   }
 
-  def expectWarning(expr: Expression, message: String) = {
+  def expectError(expr: Expression, message: String) = expectProblem(Error, expr, message)
+  def expectWarning(expr: Expression, message: String) = expectProblem(Warning, expr, message)
+
+  def expectProblem(severity: Severity, expr: Expression, message: String) = {
     val program = Program(expr :: Nil)
     val problems = CheckAllRules(program)
 
-    problems.size shouldBe 1
-    val problem = problems.head
-
-    problem.severity   shouldBe Warning
-    problem.message    should startWith ("[Warning]")
-    problem.message    should include (message)
-    problem.expression shouldBe expr
+    problems.map(p => p.severity)   should contain (severity)
+    problems.map(p => p.message)    should contain (s"[$severity] " + message)
+    problems.map(p => p.expression) should contain (expr)
   }
 
 }

@@ -5,7 +5,7 @@ import ar.edu.unq.numbers.{Multiplication, Number}
 
 trait CheckerMulOperationSpec extends BaseSpec {
 
-  "Check valid Multiplications" should "return Nil" in {
+  "Check valid Multiplications" should "not return Problems" in {
     expectNoProblemsOnMultiplication(2, 3)
     expectNoProblemsOnMultiplication(-1, 2)
   }
