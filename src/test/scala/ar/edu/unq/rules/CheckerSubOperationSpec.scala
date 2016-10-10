@@ -5,8 +5,9 @@ import ar.edu.unq.numbers.{Number, Sub}
 
 trait CheckerSubOperationSpec extends BaseSpec {
 
-  "Check valid Subs" should "return Nil" in {
+  "Check valid Subs" should "not return Problems" in {
     expectNoProblemsOnSub(2, 3)
+    expectNoProblemsOnSub(5, 3)
     expectNoProblemsOnSub(0, 2)
   }
 
