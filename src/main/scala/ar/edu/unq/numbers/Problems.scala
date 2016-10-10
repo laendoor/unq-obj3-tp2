@@ -8,4 +8,7 @@ case class AddZeroProblem(override val expression: Expression)
     expression)
 
 case class MultByOneProblem(override val expression: Expression) extends Problem(Warning,
-    "[Warning] you are multiplying by one ", expression )
+    "[Warning] Redundant operation:  you are multiplying by one ", expression )
+
+case class SubByZeroProblem(override val expression: Expression) extends Problem(Warning,
+    "[Warning] Redundant operation:  you are sub by zero ", expression )

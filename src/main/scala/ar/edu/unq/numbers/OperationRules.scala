@@ -18,10 +18,16 @@ object DivisionRules {
   }
 }
 
-object MultiplicationRules{
+object MultiplicationRules {
   val multByOne: Rule = {
-    case m @ Multiplication(_,Number(1)) => Some(MultByOneProblem(m))
-    case m @ Multiplication(Number(1),_) => Some(MultByOneProblem(m))
+    case m@Multiplication(_, Number(1)) => Some(MultByOneProblem(m))
+    case m@Multiplication(Number(1), _) => Some(MultByOneProblem(m))
+    case _ => None
+  }
+}
+object SubRules{
+  val SubByZero: Rule = {
+    case r @Sub(_,Number(0)) => Some(SubByZeroProblem(r))
     case _ => None
   }
 }
