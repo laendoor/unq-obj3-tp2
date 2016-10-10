@@ -27,3 +27,16 @@ object refactor {
   }
 }
 
+object Interprete {
+/*
+  def apply (program: Program): List[Int]={
+    executer(program.expressions)
+  }
+
+  def executer(exp: List[Expression]): List[Int] ={
+    val resultList = List[Int]
+    case [] => resultList
+    case x::xs => resultList.add(x.run())
+  }
+*/
+}
