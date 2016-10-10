@@ -10,7 +10,7 @@ object OperationRules {
   }
 
   val subZero: Rule = {
-    case s @Sub(_, Number(0)) => Some(SubZeroProblem(s))
+    case s @Subtraction(_, Number(0)) => Some(SubZeroProblem(s))
     case _ => None
   }
 
@@ -33,14 +33,6 @@ object OperationRules {
   val multiplyByZero: Rule = {
     case m @ Multiplication(Number(x), Number(y))
       if x == 0 || y == 0 => Some(MultiplyByZeroProblem(m))
-    case _ => None
-  }
-}
-
-// FIXME
-object EqualesRule{
-  val comparisionProblemBoolean: Rule ={
-    case e @Equals(Number(n),Number(m)) if n ==m => Some(ComparisionProblemTrue(e))
     case _ => None
   }
 }
