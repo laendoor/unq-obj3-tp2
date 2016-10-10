@@ -11,5 +11,3 @@ abstract class WarningProblem(description: String, expression: Expression)
 
 abstract class ErrorProblem(description: String, expression: Expression)
   extends Problem(Error, s"[Error] $description", expression)
-
-case class InvalidExpressionProblem(expr: Expression) extends ErrorProblem("Invalid expression", expr)
