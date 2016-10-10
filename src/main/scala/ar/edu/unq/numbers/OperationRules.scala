@@ -32,4 +32,9 @@ object SubRules{
   }
 }
 
-//object DistinctRule
+object EqualesRule{
+  val comparisionProblemBoolean: Rule ={
+    case e @Equals(Number(n),Number(n)) => Some(ComparisionProblemTrue,(e))
+    case _ => None
+  }
+}
