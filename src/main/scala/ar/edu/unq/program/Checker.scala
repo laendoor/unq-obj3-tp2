@@ -1,6 +1,6 @@
 package ar.edu.unq.program
 
-import ar.edu.unq.program.AliasType.Rule
+import ar.edu.unq.program.AliasType.{RefactorRules, Rule}
 
 /**
   * Un chequeador recibe un programa y una lista de reglas
@@ -15,3 +15,15 @@ object Checker {
     rules.flatMap(rule => rule(expression))
   }
 }
+
+object refactor {
+
+  def apply(program: Program, rules: List[RefactorRules]): Program= {
+    Program(rules.foldLeft(program.expressions){(exprs,rule)=> refactorRules(rule,exprs)})
+  }
+
+  def refactorRules(rule: RefactorRules,expressions: List[Expression]) = {
+    expressions.map {e => rule(e) }
+  }
+}
+

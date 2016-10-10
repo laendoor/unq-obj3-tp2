@@ -36,3 +36,31 @@ object OperationRules {
     case _ => None
   }
 }
+
+object RefactorOperationRules {
+  val  expSum: RefactorRules = {
+    case s @Sum(Number(0),a) => a
+    case s @Sum(a,Number(0)) => a
+    case s @Sum(_,_) => s
+  }
+
+  val expSub: RefactorRules = {
+    case s @Subtraction(a,Number(0)) => a
+    case s @Subtraction(_,_) => s
+  }
+
+  val expDivide: RefactorRules = {
+    case s @Division(a,Number(0)) => a
+    case s @Division(_,_) => s
+  }
+
+  val expMul: RefactorRules = {
+    case s @Multiplication(Number(0),a) => a
+    case s @Multiplication(a,Number(0)) => a
+    case s @Multiplication(Number(1),a) => a
+    case s @Multiplication(a,Number(1)) => a
+    case s @Multiplication(_,_) => s
+  }
+
+}
+
