@@ -1,6 +1,6 @@
 package ar.edu.unq
 
-import ar.edu.unq.numbers.{DivisionRules, SumRules}
+import ar.edu.unq.numbers.{DivisionRules, MultiplicationRules, Multiplicationrules, SumRules}
 import ar.edu.unq.program.AliasType.Rule
 import ar.edu.unq.program.{Checker, GenericRules, Program}
 import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
@@ -18,7 +18,8 @@ object AllRules {
     List(
       GenericRules.validExpression,
       SumRules.addZero,
-      DivisionRules.divideByZero
+      DivisionRules.divideByZero,
+      MultiplicationRules.multByOne
     )
   }
 }

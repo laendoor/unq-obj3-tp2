@@ -17,3 +17,11 @@ object DivisionRules {
     case _ => None
   }
 }
+
+object MultiplicationRules{
+  val multByOne: Rule = {
+    case m @ Multiplication(_,Number(1)) => Some(MultByOneProblem(m))
+    case m @ Multiplication(Number(1),_) => Some(MultByOneProblem(m))
+    case _ => None
+  }
+}
