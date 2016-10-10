@@ -31,3 +31,5 @@ object SubRules{
     case _ => None
   }
 }
+
+//object DistinctRule
