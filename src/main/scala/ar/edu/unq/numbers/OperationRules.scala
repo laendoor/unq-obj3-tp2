@@ -15,19 +15,19 @@ object OperationRules {
   }
 
   val divideByZero: Rule = {
-    case d @ Division(_,Number(0)) => Some(DivideByZeroProblem(d))
+    case d @ Division(_, Number(0)) => Some(DivideByZeroProblem(d))
     case _ => None
   }
 
   val multiplyByOne: Rule = {
-    case m @ Multiplication(_, Number(1)) => Some(MultiplyByOneProblem(m))
-    case m @ Multiplication(Number(1), _) => Some(MultiplyByOneProblem(m))
+    case m @ Multiplication(Number(x), Number(y))
+      if x == 1 || y == 1 => Some(MultiplyByOneProblem(m))
     case _ => None
   }
 
   val multiplyByZero: Rule = {
-    case m @ Multiplication(_, Number(0)) => Some(MultiplyByZeroProblem(m))
-    case m @ Multiplication(Number(0), _) => Some(MultiplyByZeroProblem(m))
+    case m @ Multiplication(Number(x), Number(y))
+      if x == 0 || y == 0 => Some(MultiplyByZeroProblem(m))
     case _ => None
   }
 }

@@ -5,7 +5,7 @@ import ar.edu.unq.numbers.{Number, Sum}
 
 trait CheckerSumOperationSpec extends BaseSpec {
 
-  "Check Sum(Number(2), Number(3))" should "return Nil" in {
+  "Check valid Sums" should "return Nil" in {
     expectNoProblemsOnSum(2, 3)
     expectNoProblemsOnSum(1, 4)
     expectNoProblemsOnSum(-1, 2)
