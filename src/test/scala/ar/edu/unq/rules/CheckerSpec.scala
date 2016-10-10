@@ -5,6 +5,6 @@ import ar.edu.unq.BaseSpec
 class CheckerSpec extends BaseSpec
   with CheckerNumberSpec
   with CheckerSumOperationSpec
-//  with CheckerSubOperruationSpec
-//  with CheckerDivOperationSpec
-//  with CheckerMulOperationSpec
+  with CheckerSubOperationSpec
+  with CheckerMulOperationSpec
+  with CheckerDivOperationSpec

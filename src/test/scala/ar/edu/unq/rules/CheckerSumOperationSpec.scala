@@ -1,29 +1,31 @@
 package ar.edu.unq.rules
 
+import ar.edu.unq.BaseSpec
 import ar.edu.unq.numbers.{Number, Sum}
-import ar.edu.unq.program.{Program, Warning}
-import ar.edu.unq.{BaseSpec, CheckAllRules}
 
 trait CheckerSumOperationSpec extends BaseSpec {
 
-  "Check Sum(Number(2), Number(3))" should "return Nil" in {
-    val sum = Sum(Number(2), Number(3))
-    val program = Program(sum :: Nil)
-
-    CheckAllRules(program) shouldBe Nil
+  "Check Sums" should s"$notContainProblems with valid operands" in {
+    expectNoProblemsOnSum(2, 3)
+    expectNoProblemsOnSum(1, 4)
+    expectNoProblemsOnSum(-1, 2)
   }
 
-  "Check Sum(Number(2), Number(0))" should "return Warning with message of redundancy" in {
-    val sum = Sum(Number(2), Number(0))
-    val program = Program(sum :: Nil)
-    val problems = CheckAllRules(program)
+  it should s"$containRedundancyWarningMessage with at least one Number(0)" in {
+    expectSumZeroWarning(2, 0)
+    expectSumZeroWarning(0, -1)
+    expectSumZeroWarning(0, 0)
+  }
 
-    problems.size shouldBe 1
-    val problem = problems.head
+  def expectNoProblemsOnSum(x: Int, y: Int) = {
+    expectNoProblems(Sum(Number(x), Number(y)))
+  }
 
-    problem.severity   shouldBe Warning
-    problem.message    shouldBe "[Warning] Redundant operation: it is adding zero"
-    problem.expression shouldBe sum
+  def expectSumZeroWarning(x: Int, y: Int) = {
+    expectWarning(
+      Sum(Number(x), Number(y)),
+      "Redundant operation: it is adding zero"
+    )
   }
 
 }

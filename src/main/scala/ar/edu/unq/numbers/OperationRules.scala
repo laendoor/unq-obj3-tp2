@@ -2,36 +2,42 @@ package ar.edu.unq.numbers
 
 import ar.edu.unq.program.AliasType._
 
-object SumRules {
-  val addZero: Rule = {
-    case s @ Sum(_, Number(0)) => Some(AddZeroProblem(s))
-    case s @ Sum(Number(0), _) => Some(AddZeroProblem(s))
+object OperationRules {
+  val sumZero: Rule = {
+    case s @ Sum(Number(x), Number(y))
+      if x == 0 || y == 0 => Some(SumZeroProblem(s))
+    case _ => None
+  }
+
+  val subZero: Rule = {
+    case s @Sub(_, Number(0)) => Some(SubZeroProblem(s))
+    case _ => None
+  }
+
+  val divideByOne: Rule = {
+    case d @ Division(_, Number(1)) => Some(DivideByOneProblem(d))
+    case _ => None
+  }
+
+  val divideByZero: Rule = {
+    case d @ Division(_, Number(0)) => Some(DivideByZeroProblem(d))
+    case _ => None
+  }
+
+  val multiplyByOne: Rule = {
+    case m @ Multiplication(Number(x), Number(y))
+      if x == 1 || y == 1 => Some(MultiplyByOneProblem(m))
+    case _ => None
+  }
+
+  val multiplyByZero: Rule = {
+    case m @ Multiplication(Number(x), Number(y))
+      if x == 0 || y == 0 => Some(MultiplyByZeroProblem(m))
     case _ => None
   }
 }
 
 // FIXME
-object DivisionRules {
-  val divideByZero: Rule = {
-    case d @ Division(_,Number(0)) => Some(AddZeroProblem(d))
-    case _ => None
-  }
-}
-
-object MultiplicationRules {
-  val multByOne: Rule = {
-    case m@Multiplication(_, Number(1)) => Some(MultByOneProblem(m))
-    case m@Multiplication(Number(1), _) => Some(MultByOneProblem(m))
-    case _ => None
-  }
-}
-object SubRules{
-  val SubByZero: Rule = {
-    case r @Sub(_,Number(0)) => Some(SubByZeroProblem(r))
-    case _ => None
-  }
-}
-
 object EqualesRule{
   val comparisionProblemBoolean: Rule ={
     case e @Equals(Number(n),Number(m)) if n ==m => Some(ComparisionProblemTrue(e))

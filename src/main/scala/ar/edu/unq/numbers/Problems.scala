@@ -1,20 +1,26 @@
 package ar.edu.unq.numbers
 
-import ar.edu.unq.program.{Expression, Problem, Warning}
+import ar.edu.unq.program.{ErrorProblem, Expression, WarningProblem}
 
-case class AddZeroProblem(override val expression: Expression)
-  extends Problem(Warning,
-    "[Warning] Redundant operation: it is adding zero",
-    expression)
+abstract class RedundantOperationProblem(description: String, op: Operation)
+  extends WarningProblem(s"Redundant operation: $description", op)
 
-case class MultByOneProblem(override val expression: Expression) extends Problem(Warning,
-    "[Warning] Redundant operation:  you are multiplying by one ", expression )
+abstract class InvalidOperationProblem(description: String, op: Operation)
+  extends ErrorProblem(s"Invalid operation: $description", op)
 
-case class SubByZeroProblem(override val expression: Expression) extends Problem(Warning,
-    "[Warning] Redundant operation:  you are sub by zero ", expression )
+case class SumZeroProblem(sum: Sum) extends RedundantOperationProblem("it is adding zero", sum)
+case class SubZeroProblem(sub: Sub) extends RedundantOperationProblem("it is subtracting zero", sub)
 
-case class ComparisionProblemTrue(override val expression: Expression)extends Problem(Warning,
-    "[Warning] Redundant operation: this comparison always gives True", expression )
+case class DivideByOneProblem(div: Division)  extends RedundantOperationProblem("it is dividing by one", div)
+case class DivideByZeroProblem(div: Division) extends InvalidOperationProblem("it is dividing by zero", div)
 
-case class ComparisionProblemFalse(override val expression: Expression)extends Problem(Warning,
-    "[Warning] Redundant operation: this comparison always gives False", expression )
+case class MultiplyByOneProblem(mul: Multiplication)  extends RedundantOperationProblem("it is multiplying by one", mul)
+case class MultiplyByZeroProblem(mul: Multiplication) extends RedundantOperationProblem("it is multiplying by zero", mul)
+
+
+// FIXME
+case class ComparisionProblemTrue(override val expression: Expression)
+  extends WarningProblem("Redundant operation: this comparison always gives True", expression)
+
+case class ComparisionProblemFalse(override val expression: Expression)
+  extends WarningProblem("Redundant operation: this comparison always gives False", expression)
