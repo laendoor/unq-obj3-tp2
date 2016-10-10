@@ -42,14 +42,18 @@ object CheckAllRules {
 object AllRules {
   def apply(): List[Rule] = {
     List(
-      GenericRules.validExpression,
       OperationRules.sumZero,
       OperationRules.subZero,
       OperationRules.divideByOne,
       OperationRules.divideByZero,
       OperationRules.multiplyByOne,
       OperationRules.multiplyByZero,
-      ComparisonRules.equality
+      ComparisonRules.equality,
+      ComparisonRules.inequality,
+      ComparisonRules.lesser,
+      ComparisonRules.greater,
+      ComparisonRules.lesserOrEqual,
+      ComparisonRules.greaterOrEqual
     )
   }
 }
