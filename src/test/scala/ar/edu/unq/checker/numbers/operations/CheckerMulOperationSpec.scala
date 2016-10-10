@@ -1,4 +1,4 @@
-package ar.edu.unq.rules
+package ar.edu.unq.checker.numbers.operations
 
 import ar.edu.unq.BaseSpec
 import ar.edu.unq.numbers.{Multiplication, Number}

@@ -1,7 +1,6 @@
 package ar.edu.unq
 
-import ar.edu.unq.numbers.OperationRules
-import ar.edu.unq.numbers.EqualesRule
+import ar.edu.unq.numbers.{ComparisonRules, OperationRules}
 import ar.edu.unq.program.AliasType.Rule
 import ar.edu.unq.program._
 import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
@@ -47,7 +46,7 @@ object AllRules {
       OperationRules.divideByZero,
       OperationRules.multiplyByOne,
       OperationRules.multiplyByZero,
-      EqualesRule.comparisionProblemBoolean
+      ComparisonRules.equality
     )
   }
 }
