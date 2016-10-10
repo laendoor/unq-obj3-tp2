@@ -17,4 +17,6 @@ abstract class Expression
   */
 object AliasType {
   type Rule = PartialFunction[Expression, Option[Problem]]
+  type RefactorRules = PartialFunction[Expression, Expression]
 }
+
