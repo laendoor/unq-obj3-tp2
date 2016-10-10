@@ -1,11 +1,12 @@
 package ar.edu.unq.numbers
 
-import ar.edu.unq.program.{Expression, WarningProblem}
+import ar.edu.unq.program.WarningProblem
 
+abstract class NonSenseComparisionProblem(description: String, cmp: Comparison)
+  extends WarningProblem(s"Non-Sense Comparison: $description", cmp)
 
-// FIXME
-case class TrueEqualityProblem(override val expression: Expression)
-  extends WarningProblem("Redundant operation: this comparison always gives True", expression)
+case class TrueEqualityProblem(cmp: Comparison)
+  extends NonSenseComparisionProblem("this comparison always gives True", cmp)
 
-case class ComparisonProblemFalse(override val expression: Expression)
-  extends WarningProblem("Redundant operation: this comparison always gives False", expression)
+case class FalseEqualityProblem(cmp: Comparison)
+  extends NonSenseComparisionProblem("this comparison always gives False", cmp)

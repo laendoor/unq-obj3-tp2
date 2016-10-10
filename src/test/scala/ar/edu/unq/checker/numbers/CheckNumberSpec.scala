@@ -1,14 +1,9 @@
 package ar.edu.unq.checker.numbers
 
 import ar.edu.unq.BaseSpec
-import ar.edu.unq.checker.numbers.operations.{CheckDivisionSpec, CheckMultiplicationSpec, CheckSubtractionSpec, CheckSumSpec}
 import ar.edu.unq.numbers.Number
 
-trait CheckNumberSpec extends BaseSpec
-  with CheckSumSpec
-  with CheckSubtractionSpec
-  with CheckMultiplicationSpec
-  with CheckDivisionSpec {
+trait CheckNumberSpec extends BaseSpec {
 
   "Check Numbers" should notContainProblems in {
     expectNoProblems(Number(-2))

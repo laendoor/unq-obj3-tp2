@@ -9,9 +9,11 @@ class BaseSpec extends FlatSpec
   with Matchers
   with BeforeAndAfter {
 
-  val notContainProblems = "not contain Problems"
-  val containRedundancyWarningMessage = "contain a Warning Problem and Redundancy Message"
-  val containInvalidOperationErrorMessage = "contain an Error Problem and Invalid Operation Message"
+  val notContainProblems = "not contain problems"
+  val containRedundancyWarningMessage = "contain a warning problem and redundancy message"
+  val containInvalidOperationErrorMessage = "contain an error problem and invalid operation message"
+  val containAlwaysTrueComparisionWarningMessage = "contain a warning problem and an always-true comparison message"
+  val containAlwaysFalseComparisionWarningMessage = "contain a warning problem and an always-false comparison message"
 
   def expectNoProblems(expr: Expression) = {
     val program = Program(expr :: Nil)
