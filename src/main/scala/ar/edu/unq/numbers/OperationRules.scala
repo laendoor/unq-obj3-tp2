@@ -34,7 +34,7 @@ object SubRules{
 
 object EqualesRule{
   val comparisionProblemBoolean: Rule ={
-    case e @Equals(Number(n),Number(n)) => Some(ComparisionProblemTrue,(e))
+    case e @Equals(Number(n),Number(m)) if n ==m => Some(ComparisionProblemTrue(e))
     case _ => None
   }
 }
