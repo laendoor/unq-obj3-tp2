@@ -1,6 +1,6 @@
 package ar.edu.unq.numbers
 
-import ar.edu.unq.program.{ErrorProblem, WarningProblem}
+import ar.edu.unq.program.{ErrorProblem, Expression, WarningProblem}
 
 abstract class RedundantOperationProblem(description: String, op: Operation)
   extends WarningProblem(s"Redundant operation: $description", op)
@@ -17,3 +17,10 @@ case class DivideByZeroProblem(div: Division) extends InvalidOperationProblem("i
 case class MultiplyByOneProblem(mul: Multiplication)  extends RedundantOperationProblem("it is multiplying by one", mul)
 case class MultiplyByZeroProblem(mul: Multiplication) extends RedundantOperationProblem("it is multiplying by zero", mul)
 
+
+// FIXME
+case class ComparisionProblemTrue(override val expression: Expression)
+  extends WarningProblem("Redundant operation: this comparison always gives True", expression)
+
+case class ComparisionProblemFalse(override val expression: Expression)
+  extends WarningProblem("Redundant operation: this comparison always gives False", expression)
