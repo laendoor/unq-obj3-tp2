@@ -1,6 +1,6 @@
 package ar.edu.unq
 
-import ar.edu.unq.numbers.{DivisionRules, MultiplicationRules, SumRules}
+import ar.edu.unq.numbers.OperationRules
 import ar.edu.unq.program.AliasType.Rule
 import ar.edu.unq.program.{Checker, GenericRules, Program}
 import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
@@ -17,10 +17,10 @@ object AllRules {
   def apply(): List[Rule] = {
     List(
       GenericRules.validExpression,
-      SumRules.addZero,
-      DivisionRules.divideByZero,
-      MultiplicationRules.multByOne
-
+      OperationRules.sumZero,
+      OperationRules.subZero,
+      OperationRules.divideByZero,
+      OperationRules.multiplyByOne
     )
   }
 }

@@ -6,7 +6,7 @@ import ar.edu.unq.{BaseSpec, CheckAllRules}
 
 trait CheckerNumberSpec extends BaseSpec {
 
-  "Checker Number(2)" should "return Nil" in {
+  "Check Number(2)" should "return Nil" in {
     val number  = Number(2)
     val program = Program(number :: Nil)
 

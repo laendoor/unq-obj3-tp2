@@ -16,7 +16,7 @@ trait CheckerSumOperationSpec extends BaseSpec {
   "Check Sum with at least one Number(0)" should "return Warning with message of redundancy" in {
     expectWarningWithSumOf(2, 0)
     expectWarningWithSumOf(0, -1)
-    expectWarningWithSumOf(2, 0)
+    expectWarningWithSumOf(0, 0)
   }
 
   def expectWarningWithSumOf(x: Int, y: Int) = {

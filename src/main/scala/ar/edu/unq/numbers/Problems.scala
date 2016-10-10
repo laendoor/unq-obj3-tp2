@@ -1,14 +1,17 @@
 package ar.edu.unq.numbers
 
-import ar.edu.unq.program.{Expression, Problem, Warning}
+import ar.edu.unq.program.{Expression, Problem, Warning, Error}
 
-case class AddZeroProblem(override val expression: Expression)
+case class SumZeroProblem(override val expression: Expression)
   extends Problem(Warning,
-    "[Warning] Redundant operation: it is adding zero",
-    expression)
+    "[Warning] Redundant operation: it is adding zero", expression)
 
-case class MultByOneProblem(override val expression: Expression) extends Problem(Warning,
-    "[Warning] Redundant operation:  you are multiplying by one ", expression )
+case class SubZeroProblem(override val expression: Expression) extends Problem(Warning,
+    "[Warning] Redundant operation: it is subtracting zero", expression)
 
-case class SubByZeroProblem(override val expression: Expression) extends Problem(Warning,
-    "[Warning] Redundant operation:  you are sub by zero ", expression )
+case class DivideByZeroProblem(override val expression: Expression) extends Problem(Error,
+    "[Error] Invalid operation: it is dividing by zero", expression)
+
+case class MultiplyByOneProblem(override val expression: Expression) extends Problem(Warning,
+    "[Warning] Redundant operation: it is multiplying by one", expression)
+
