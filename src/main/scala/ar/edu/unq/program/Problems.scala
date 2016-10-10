@@ -6,5 +6,10 @@ abstract class Problem(
   val expression: Expression
 )
 
-case class InvalidExpressionProblem(override val expression: Expression)
-  extends Problem(Error, "[Error] Invalid expression", expression)
+abstract class WarningProblem(description: String, expression: Expression)
+  extends Problem(Warning, s"[Warning] $description", expression)
+
+abstract class ErrorProblem(description: String, expression: Expression)
+  extends Problem(Error, s"[Error] $description", expression)
+
+case class InvalidExpressionProblem(expr: Expression) extends ErrorProblem("Invalid expression", expr)

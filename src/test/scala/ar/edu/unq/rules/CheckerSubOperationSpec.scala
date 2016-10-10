@@ -5,13 +5,13 @@ import ar.edu.unq.numbers.{Number, Sub}
 
 trait CheckerSubOperationSpec extends BaseSpec {
 
-  "Check valid Subs" should "not return Problems" in {
+  "Check Subtractions" should s"$notContainProblems with valid operands" in {
     expectNoProblemsOnSub(2, 3)
     expectNoProblemsOnSub(5, 3)
     expectNoProblemsOnSub(0, 2)
   }
 
-  "Check Sub with second operand Number(0)" should "return Warning with message of redundancy" in {
+  it should s"$containRedundancyWarningMessage with Number(0) in second operand" in {
     expectSubZeroWarning(2, 0)
     expectSubZeroWarning(0, 0)
   }

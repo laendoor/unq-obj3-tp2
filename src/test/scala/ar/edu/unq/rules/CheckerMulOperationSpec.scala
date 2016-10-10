@@ -5,19 +5,19 @@ import ar.edu.unq.numbers.{Multiplication, Number}
 
 trait CheckerMulOperationSpec extends BaseSpec {
 
-  "Check valid Multiplications" should "not return Problems" in {
+  "Check Multiplications" should s"$notContainProblems with valid operands" in {
     expectNoProblemsOnMultiplication(2, 3)
     expectNoProblemsOnMultiplication(-1, 2)
   }
 
-  "Check Multiplications with at least one 1 as operand" should "return Warning with message of redundancy" in {
+  it should s"$containRedundancyWarningMessage with Number(1) in at least one of the operands" in {
     expectMultiplyByOneWarning(1, 2)
     expectMultiplyByOneWarning(3, 1)
     expectMultiplyByOneWarning(1, 1)
     expectMultiplyByOneWarning(-2, 1)
   }
 
-  "Check Multiplications with at least one 0 as operand" should "return Warning with message of redundancy" in {
+  it should s"$containRedundancyWarningMessage with Number(0) in ar least one of the operands" in {
     expectMultiplyByZeroWarning(0, 2)
     expectMultiplyByZeroWarning(3, 0)
     expectMultiplyByZeroWarning(0, 0)

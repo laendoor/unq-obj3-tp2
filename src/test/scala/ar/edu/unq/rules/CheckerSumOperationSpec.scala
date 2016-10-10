@@ -5,13 +5,13 @@ import ar.edu.unq.numbers.{Number, Sum}
 
 trait CheckerSumOperationSpec extends BaseSpec {
 
-  "Check valid Sums" should "not return Problems" in {
+  "Check Sums" should s"$notContainProblems with valid operands" in {
     expectNoProblemsOnSum(2, 3)
     expectNoProblemsOnSum(1, 4)
     expectNoProblemsOnSum(-1, 2)
   }
 
-  "Check Sum with at least one Number(0)" should "return Warning with message of redundancy" in {
+  it should s"$containRedundancyWarningMessage with at least one Number(0)" in {
     expectSumZeroWarning(2, 0)
     expectSumZeroWarning(0, -1)
     expectSumZeroWarning(0, 0)

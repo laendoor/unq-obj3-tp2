@@ -9,6 +9,10 @@ class BaseSpec extends FlatSpec
   with Matchers
   with BeforeAndAfter {
 
+  val notContainProblems = "not contain Problems"
+  val containRedundancyWarningMessage = "contain a Warning Problem and Redundancy Message"
+  val containInvalidOperationErrorMessage = "contain an Error Problem and Invalid Operation Message"
+
   def expectNoProblems(expr: Expression) = {
     val program = Program(expr :: Nil)
     CheckAllRules(program) shouldBe Nil
@@ -38,6 +42,7 @@ object AllRules {
       GenericRules.validExpression,
       OperationRules.sumZero,
       OperationRules.subZero,
+      OperationRules.divideByOne,
       OperationRules.divideByZero,
       OperationRules.multiplyByOne,
       OperationRules.multiplyByZero

@@ -14,6 +14,11 @@ object OperationRules {
     case _ => None
   }
 
+  val divideByOne: Rule = {
+    case d @ Division(_, Number(1)) => Some(DivideByOneProblem(d))
+    case _ => None
+  }
+
   val divideByZero: Rule = {
     case d @ Division(_, Number(0)) => Some(DivideByZeroProblem(d))
     case _ => None
