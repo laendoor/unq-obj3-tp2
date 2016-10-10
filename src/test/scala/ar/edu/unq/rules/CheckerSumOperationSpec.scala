@@ -13,8 +13,14 @@ trait CheckerSumOperationSpec extends BaseSpec {
     CheckAllRules(program) shouldBe Nil
   }
 
-  "Check Sum(Number(2), Number(0))" should "return Warning with message of redundancy" in {
-    val sum = Sum(Number(2), Number(0))
+  "Check Sum with at least one Number(0)" should "return Warning with message of redundancy" in {
+    expectWarningWithSumOf(2, 0)
+    expectWarningWithSumOf(0, -1)
+    expectWarningWithSumOf(2, 0)
+  }
+
+  def expectWarningWithSumOf(x: Int, y: Int) = {
+    val sum = Sum(Number(x), Number(y))
     val program = Program(sum :: Nil)
     val problems = CheckAllRules(program)
 
