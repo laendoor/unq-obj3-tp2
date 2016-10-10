@@ -4,8 +4,8 @@ import ar.edu.unq.program.AliasType._
 
 object OperationRules {
   val sumZero: Rule = {
-    case s @ Sum(_, Number(0)) => Some(SumZeroProblem(s))
-    case s @ Sum(Number(0), _) => Some(SumZeroProblem(s))
+    case s @ Sum(Number(x), Number(y))
+      if x == 0 || y == 0 => Some(SumZeroProblem(s))
     case _ => None
   }
 
