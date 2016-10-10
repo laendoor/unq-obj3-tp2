@@ -62,5 +62,37 @@ object RefactorOperationRules {
     case s @Multiplication(_,_) => s
   }
 
+  val expEquality: RefactorRules = {
+    case e @ Equals(Number(x), Number(y)) if x == y => TRUE()
+    case e @ Equals(Number(x), Number(y)) if x != y => FALSE()
+  }
+
+  val expInequality: RefactorRules = {
+    case e @ Distinct(Number(x), Number(y)) if x == y => FALSE()
+    case e @ Distinct(Number(x), Number(y)) if x != y => TRUE()
+  }
+
+  val expLesser: RefactorRules = {
+    case e @ Lesser(Number(x), Number(y)) if x < y  => TRUE()
+    case e @ Lesser(Number(x), Number(y)) if x >= y => FALSE()
+  }
+
+  val expGreater: RefactorRules = {
+    case e @ Greater(Number(x), Number(y)) if x > y  => TRUE()
+    case e @ Greater(Number(x), Number(y)) if x <= y => FALSE()
+  }
+
+  val expLesserOrEqual: RefactorRules = {
+    case e @ LesserOrEqual(Number(x), Number(y)) if x <= y => TRUE()
+    case e @ LesserOrEqual(Number(x), Number(y)) if x > y  => FALSE()
+
+  }
+
+  val expGreaterOrEqual: RefactorRules = {
+    case e @ GreaterOrEqual(Number(x), Number(y)) if x >= y => TRUE()
+    case e @ GreaterOrEqual(Number(x), Number(y)) if x < y  => FALSE()
+
+  }
+
 }
 
