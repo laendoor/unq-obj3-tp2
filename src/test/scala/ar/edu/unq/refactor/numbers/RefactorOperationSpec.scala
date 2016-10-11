@@ -1,8 +1,6 @@
 package ar.edu.unq.refactor.numbers
 
 import ar.edu.unq._
-import ar.edu.unq.checker._
-import ar.edu.unq.numbers._
 import ar.edu.unq.program.{Number, Program}
 import ar.edu.unq.refactor.{BaseRefactorSpec, RefactorWithAllRules}
 
