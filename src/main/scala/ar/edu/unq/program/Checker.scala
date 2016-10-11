@@ -37,7 +37,7 @@ object Interprete {
     //val resultList = List[Value]
     exp match {
       case Nil => Nil
-      case x :: xs => x.run :: executer(xs)
+      case x :: xs => x.run(x) :: executer(xs)
 
     }
   }

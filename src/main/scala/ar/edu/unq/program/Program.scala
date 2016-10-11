@@ -14,7 +14,7 @@ abstract class Value{}
   */
 abstract class Expression extends Value {
 
-  def run: Expression ={
+  def run(expression: Expression): Expression ={
 
     return  new Expression{}
 
