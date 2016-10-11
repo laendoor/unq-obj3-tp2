@@ -3,6 +3,16 @@ package ar.edu.unq.numbers
 import ar.edu.unq.program.AliasType._
 
 object ComparisonRules {
+  val smart: Rule = {
+    case op: Equals   => equality(op)
+    case op: Distinct => inequality(op)
+    case op: Lesser   => lesser(op)
+    case op: Greater  => greater(op)
+    case op: LesserOrEqual  => lesserOrEqual(op)
+    case op: GreaterOrEqual => greaterOrEqual(op)
+    case _ => None
+  }
+
   val equality: Rule = {
     case e @ Equals(Number(x), Number(y)) if x == y => Some(TrueComparisonProblem(e))
     case e @ Equals(Number(x), Number(y)) if x != y => Some(FalseComparisonProblem(e))

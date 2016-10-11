@@ -21,12 +21,7 @@ object CheckAllRules {
   def allRules: List[Rule] = {
     List(
       OperationRules.smart,
-      ComparisonRules.equality,
-      ComparisonRules.inequality,
-      ComparisonRules.lesser,
-      ComparisonRules.greater,
-      ComparisonRules.lesserOrEqual,
-      ComparisonRules.greaterOrEqual
+      ComparisonRules.smart
     )
   }
 }
