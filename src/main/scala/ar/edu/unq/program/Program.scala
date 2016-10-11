@@ -8,24 +8,11 @@ package ar.edu.unq.program
 case class Program(expressions: List[Expression])
 
 
-abstract class Value{}
-/**
-  * Expresión
-  */
-abstract class Expression extends Value {
-
-  def run(expression: Expression): Expression ={
-
-    return  new Expression{}
-
-  }
-}
-
 /**
   * Alias Types
   */
 object AliasType {
-  type Rule = PartialFunction[Expression, Option[Problem]]
-  type RefactorRules = PartialFunction[Expression, Expression]
+  type CheckerRule  = PartialFunction[Expression, Option[Problem]]
+  type RefactorRule = PartialFunction[Expression, Expression]
 }
 
