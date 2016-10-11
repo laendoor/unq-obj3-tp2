@@ -28,15 +28,18 @@ object refactor {
 }
 
 object Interprete {
-/*
-  def apply (program: Program): List[Int]={
+
+  def apply(program: Program): List[Expression] = {
     executer(program.expressions)
   }
 
-  def executer(exp: List[Expression]): List[Int] ={
-    val resultList = List[Int]
-    case [] => resultList
-    case x::xs => resultList.add(x.run())
+  def executer(exp: List[Expression]): List[Expression] = {
+    //val resultList = List[Value]
+    exp match {
+      case Nil => Nil
+      case x :: xs => x.run :: executer(xs)
+
+    }
   }
-*/
+
 }
