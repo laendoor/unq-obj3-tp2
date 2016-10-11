@@ -1,6 +1,7 @@
 package ar.edu.unq.numbers
 
 import ar.edu.unq.program.AliasType._
+import ar.edu.unq.program.Number
 
 object ComparisonRules {
   val smart: CheckerRule = {

@@ -1,8 +1,8 @@
 package ar.edu.unq.checker.numbers
 
 import ar.edu.unq.checker.{BaseCheckerSpec, CheckAllRules}
-import ar.edu.unq.numbers.Number
-import ar.edu.unq.program.Program
+import ar.edu.unq._
+import ar.edu.unq.program.{Number, Program}
 
 trait CheckNumberSpec extends BaseCheckerSpec {
 

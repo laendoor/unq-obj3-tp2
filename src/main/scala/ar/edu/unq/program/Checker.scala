@@ -1,6 +1,6 @@
 package ar.edu.unq.program
 
-import ar.edu.unq.program.AliasType.{RefactorRule, CheckerRule}
+import ar.edu.unq.program.AliasType.{CheckerRule, RefactorRule}
 
 /**
   * Un chequeador recibe un programa y una lista de reglas
@@ -16,9 +16,9 @@ object Checker {
   }
 }
 
-object refactor {
+object Refactor {
 
-  def apply(program: Program, rules: List[RefactorRule]): Program= {
+  def apply(program: Program, rules: List[RefactorRule]): Program = {
     Program(rules.foldLeft(program.expressions){(exprs,rule)=> refactorRules(rule,exprs)})
   }
 
@@ -29,17 +29,17 @@ object refactor {
 
 object Interprete {
 
-  def apply(program: Program): List[Expression] = {
-    executer(program.expressions)
-  }
-
-  def executer(exp: List[Expression]): List[Expression] = {
-    //val resultList = List[Value]
-    exp match {
-      case Nil => Nil
-      case x :: xs => x.run(x) :: executer(xs)
-
-    }
-  }
+//  def apply(program: Program): List[Expression] = {
+//    executer(program.expressions)
+//  }
+//
+//  def executer(exp: List[Expression]): List[Expression] = {
+//    //val resultList = List[Value]
+//    exp match {
+//      case Nil => Nil
+//      case x :: xs => x.run(x) :: executer(xs)
+//
+//    }
+//  }
 
 }

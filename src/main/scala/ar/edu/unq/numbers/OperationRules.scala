@@ -1,6 +1,7 @@
 package ar.edu.unq.numbers
 
 import ar.edu.unq.program.AliasType._
+import ar.edu.unq.program._
 
 object OperationRules {
   val smart: CheckerRule = {
@@ -39,9 +40,9 @@ object OperationRules {
 
 object RefactorOperationRules {
   val  expSum: RefactorRule = {
-    case s @Sum(Number(0),a) => a
-    case s @Sum(a,Number(0)) => a
-    case s @Sum(_,_) => s
+    case s @ Sum(Number(0),a) => a
+    case s @ Sum(a,Number(0)) => a
+    case s @ Sum(_,_) => s
   }
 
   val expSub: RefactorRule = {
@@ -63,34 +64,34 @@ object RefactorOperationRules {
   }
 
   val expEquality: RefactorRule = {
-    case e @ Equals(Number(x), Number(y)) if x == y => TRUE()
-    case e @ Equals(Number(x), Number(y)) if x != y => FALSE()
+    case e @ Equals(Number(x), Number(y)) if x == y => Boolean(true)
+    case e @ Equals(Number(x), Number(y)) if x != y => Boolean(false)
   }
 
   val expInequality: RefactorRule = {
-    case e @ Distinct(Number(x), Number(y)) if x == y => FALSE()
-    case e @ Distinct(Number(x), Number(y)) if x != y => TRUE()
+    case e @ Distinct(Number(x), Number(y)) if x == y => Boolean(false)
+    case e @ Distinct(Number(x), Number(y)) if x != y => Boolean(true)
   }
 
   val expLesser: RefactorRule = {
-    case e @ Lesser(Number(x), Number(y)) if x < y  => TRUE()
-    case e @ Lesser(Number(x), Number(y)) if x >= y => FALSE()
+    case e @ Lesser(Number(x), Number(y)) if x < y  => Boolean(true)
+    case e @ Lesser(Number(x), Number(y)) if x >= y => Boolean(false)
   }
 
   val expGreater: RefactorRule = {
-    case e @ Greater(Number(x), Number(y)) if x > y  => TRUE()
-    case e @ Greater(Number(x), Number(y)) if x <= y => FALSE()
+    case e @ Greater(Number(x), Number(y)) if x > y  => Boolean(true)
+    case e @ Greater(Number(x), Number(y)) if x <= y => Boolean(false)
   }
 
   val expLesserOrEqual: RefactorRule = {
-    case e @ LesserOrEqual(Number(x), Number(y)) if x <= y => TRUE()
-    case e @ LesserOrEqual(Number(x), Number(y)) if x > y  => FALSE()
+    case e @ LesserOrEqual(Number(x), Number(y)) if x <= y => Boolean(true)
+    case e @ LesserOrEqual(Number(x), Number(y)) if x > y  => Boolean(false)
 
   }
 
   val expGreaterOrEqual: RefactorRule = {
-    case e @ GreaterOrEqual(Number(x), Number(y)) if x >= y => TRUE()
-    case e @ GreaterOrEqual(Number(x), Number(y)) if x < y  => FALSE()
+    case e @ GreaterOrEqual(Number(x), Number(y)) if x >= y => Boolean(true)
+    case e @ GreaterOrEqual(Number(x), Number(y)) if x < y  => Boolean(false)
 
   }
 
