@@ -25,7 +25,7 @@ abstract class Expression extends Value {
   * Alias Types
   */
 object AliasType {
-  type Rule = PartialFunction[Expression, Option[Problem]]
-  type RefactorRules = PartialFunction[Expression, Expression]
+  type CheckerRule = PartialFunction[Expression, Option[Problem]]
+  type RefactorRule = PartialFunction[Expression, Expression]
 }
 

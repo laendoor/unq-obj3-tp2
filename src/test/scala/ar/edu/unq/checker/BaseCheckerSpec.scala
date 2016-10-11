@@ -2,7 +2,7 @@ package ar.edu.unq.checker
 
 import ar.edu.unq.BaseSpec
 import ar.edu.unq.numbers.{ComparisonRules, OperationRules}
-import ar.edu.unq.program.AliasType.Rule
+import ar.edu.unq.program.AliasType.CheckerRule
 import ar.edu.unq.program._
 
 class BaseCheckerSpec extends BaseSpec {
@@ -18,7 +18,7 @@ class BaseCheckerSpec extends BaseSpec {
 object CheckAllRules {
   def apply(program: Program) = Checker(program, allRules)
 
-  def allRules: List[Rule] = {
+  def allRules: List[CheckerRule] = {
     List(
       OperationRules.smart,
       ComparisonRules.smart
