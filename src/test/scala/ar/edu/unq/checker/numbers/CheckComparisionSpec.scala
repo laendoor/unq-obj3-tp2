@@ -1,6 +1,7 @@
 package ar.edu.unq.checker.numbers
 
-import ar.edu.unq.checker.{BaseCheckerSpec, CheckAllRules}
+import ar.edu.unq._
+import ar.edu.unq.checker._
 import ar.edu.unq.numbers._
 import ar.edu.unq.program.Program
 
@@ -111,28 +112,4 @@ trait CheckComparisionSpec extends BaseCheckerSpec {
     problems.foreach(p => expectedProblems should contain (p))
   }
 
-}
-
-object MkEquals {
-  def apply(x: Int, y: Int) = Equals(Number(x), Number(y))
-}
-
-object MkDistinct {
-  def apply(x: Int, y: Int) = Distinct(Number(x), Number(y))
-}
-
-object MkLesser {
-  def apply(x: Int, y: Int) = Lesser(Number(x), Number(y))
-}
-
-object MkGreater {
-  def apply(x: Int, y: Int) = Greater(Number(x), Number(y))
-}
-
-object MkLesserOrEqual {
-  def apply(x: Int, y: Int) = LesserOrEqual(Number(x), Number(y))
-}
-
-object MkGreaterOrEqual {
-  def apply(x: Int, y: Int) = GreaterOrEqual(Number(x), Number(y))
 }

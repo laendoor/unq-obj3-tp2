@@ -1,6 +1,7 @@
 package ar.edu.unq.checker.numbers
 
-import ar.edu.unq.checker.{BaseCheckerSpec, CheckAllRules}
+import ar.edu.unq._
+import ar.edu.unq.checker._
 import ar.edu.unq.numbers._
 import ar.edu.unq.program.Program
 
@@ -88,20 +89,4 @@ trait CheckOperationSpec extends BaseCheckerSpec {
     problems.foreach(p => expectedProblems should contain (p))
   }
 
-}
-
-object MkSum {
-  def apply(x: Int, y: Int) = Sum(Number(x), Number(y))
-}
-
-object MkSubtraction {
-  def apply(x: Int, y: Int) = Subtraction(Number(x), Number(y))
-}
-
-object MkMultiplication {
-  def apply(x: Int, y: Int) = Multiplication(Number(x), Number(y))
-}
-
-object MkDivision {
-  def apply(x: Int, y: Int) = Division(Number(x), Number(y))
 }
