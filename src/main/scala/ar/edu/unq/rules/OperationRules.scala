@@ -1,9 +1,10 @@
-package ar.edu.unq.numbers
+package ar.edu.unq.rules
 
+import ar.edu.unq.numbers._
 import ar.edu.unq.program.AliasType._
 import ar.edu.unq.program._
 
-object OperationRules {
+object CheckerOperationRules {
   val smart: CheckerRule = {
     case op: Sum => sumRule(op)
     case op: Subtraction => subtractionRule(op)
@@ -39,28 +40,37 @@ object OperationRules {
 }
 
 object RefactorOperationRules {
-  val  expSum: RefactorRule = {
-    case s @ Sum(Number(0),a) => a
-    case s @ Sum(a,Number(0)) => a
-    case s @ Sum(_,_) => s
+
+  val smart: RefactorRule = {
+    case op: Sum => sumRule(op)
+    case op: Subtraction => subtractionRule(op)
+    case op: Division    => divisionRule(op)
+    case op: Multiplication => multiplicationRule(op)
+    case expr => expr
   }
 
-  val expSub: RefactorRule = {
-    case s @Subtraction(a,Number(0)) => a
-    case s @Subtraction(_,_) => s
+  val  sumRule: RefactorRule = {
+    case Sum(Number(0), number) => number
+    case Sum(number, Number(0)) => number
+    case expr => expr
   }
 
-  val expDivide: RefactorRule = {
-    case s @Division(a,Number(0)) => a
-    case s @Division(_,_) => s
+  val subtractionRule: RefactorRule = {
+    case Subtraction(number, Number(0)) => number
+    case expr => expr
   }
 
-  val expMul: RefactorRule = {
-    case s @Multiplication(Number(0),a) => a
-    case s @Multiplication(a,Number(0)) => a
-    case s @Multiplication(Number(1),a) => a
-    case s @Multiplication(a,Number(1)) => a
-    case s @Multiplication(_,_) => s
+  val divisionRule: RefactorRule = {
+    case Division(number, Number(1)) => number
+    case expr => expr
+  }
+
+  val multiplicationRule: RefactorRule = {
+    case Multiplication(Number(0), number) => Number(0)
+    case Multiplication(number, Number(0)) => Number(0)
+    case Multiplication(Number(1), number) => number
+    case Multiplication(number, Number(1)) => number
+    case expr => expr
   }
 
   val expEquality: RefactorRule = {
@@ -86,13 +96,11 @@ object RefactorOperationRules {
   val expLesserOrEqual: RefactorRule = {
     case e @ LesserOrEqual(Number(x), Number(y)) if x <= y => Boolean(true)
     case e @ LesserOrEqual(Number(x), Number(y)) if x > y  => Boolean(false)
-
   }
 
   val expGreaterOrEqual: RefactorRule = {
     case e @ GreaterOrEqual(Number(x), Number(y)) if x >= y => Boolean(true)
     case e @ GreaterOrEqual(Number(x), Number(y)) if x < y  => Boolean(false)
-
   }
 
 }

@@ -1,9 +1,10 @@
-package ar.edu.unq.numbers
+package ar.edu.unq.rules
 
+import ar.edu.unq.numbers._
 import ar.edu.unq.program.AliasType._
-import ar.edu.unq.program.Number
+import ar.edu.unq.program._
 
-object ComparisonRules {
+object CheckerComparisonRules {
   val smart: CheckerRule = {
     case op: Equals   => equality(op)
     case op: Distinct => inequality(op)
@@ -49,4 +50,48 @@ object ComparisonRules {
     case e @ GreaterOrEqual(Number(x), Number(y)) if x < y  => Some(FalseComparisonProblem(e))
     case _ => None
   }
+}
+
+object RefactorComparisonRules {
+
+  val smart: RefactorRule = {
+    case op: Equals   => equality(op)
+    case op: Distinct => inequality(op)
+    case op: Lesser   => lesser(op)
+    case op: Greater  => greater(op)
+    case op: LesserOrEqual  => lesserOrEqual(op)
+    case op: GreaterOrEqual => greaterOrEqual(op)
+    case expr => expr
+  }
+
+  val equality: RefactorRule = {
+    case Equals(Number(x), Number(y)) => Boolean(x == y)
+    case expr => expr
+  }
+
+  val inequality: RefactorRule = {
+    case Distinct(Number(x), Number(y)) => Boolean(x != y)
+    case expr => expr
+  }
+
+  val lesser: RefactorRule = {
+    case Lesser(Number(x), Number(y)) => Boolean(x < y)
+    case expr => expr
+  }
+
+  val greater: RefactorRule = {
+    case Greater(Number(x), Number(y)) => Boolean(x > y)
+    case expr => expr
+  }
+
+  val lesserOrEqual: RefactorRule = {
+    case LesserOrEqual(Number(x), Number(y)) => Boolean(x <= y)
+    case expr => expr
+  }
+
+  val greaterOrEqual: RefactorRule = {
+    case GreaterOrEqual(Number(x), Number(y)) => Boolean(x >= y)
+    case expr => expr
+  }
+
 }
