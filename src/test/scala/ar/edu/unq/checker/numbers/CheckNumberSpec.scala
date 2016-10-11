@@ -1,9 +1,9 @@
 package ar.edu.unq.checker.numbers
 
-import ar.edu.unq.BaseSpec
+import ar.edu.unq.checker.BaseCheckerSpec
 import ar.edu.unq.numbers.Number
 
-trait CheckNumberSpec extends BaseSpec {
+trait CheckNumberSpec extends BaseCheckerSpec {
 
   "Check Numbers" should notContainProblems in {
     expectNoProblems(Number(-2))

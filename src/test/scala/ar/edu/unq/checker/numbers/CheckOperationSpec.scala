@@ -1,9 +1,10 @@
 package ar.edu.unq.checker.numbers
 
 import ar.edu.unq.BaseSpec
+import ar.edu.unq.checker.BaseCheckerSpec
 import ar.edu.unq.numbers._
 
-trait CheckOperationSpec extends BaseSpec {
+trait CheckOperationSpec extends BaseCheckerSpec {
 
   "Check Sums" should s"$notContainProblems with valid operands" in {
     expectNoProblems(MkSum(2, 3))
