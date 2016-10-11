@@ -1,7 +1,6 @@
 package ar.edu.unq.checker.numbers
 
 import ar.edu.unq.checker.{BaseCheckerSpec, CheckAllRules}
-import ar.edu.unq.numbers
 import ar.edu.unq.numbers._
 import ar.edu.unq.program.Program
 
