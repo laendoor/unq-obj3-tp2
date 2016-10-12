@@ -41,7 +41,12 @@ object Refactor {
   */
 object Interpreter {
 
-  def apply(program: Program): Value = Option(execute(program.expressions).last).getOrElse(Boolean(false))
+  def apply(program: Program): Value = {
+    execute(program.expressions) match {
+      case Nil => Boolean(false)
+      case values: List[Value] => values.last
+    }
+  }
 
   def execute(expressions: List[Expression]): List[Value] = expressions map { e => e.execute }
 

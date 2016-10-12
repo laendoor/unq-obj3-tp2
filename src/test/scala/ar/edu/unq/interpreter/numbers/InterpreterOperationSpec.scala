@@ -1,95 +1,39 @@
 package ar.edu.unq.interpreter.numbers
 
 import ar.edu.unq._
+import ar.edu.unq.program.{Interpreter, Number, Program}
 
 trait InterpreterOperationSpec extends BaseSpec {
 
-//  "Refactor Sums" should "return same Sums when contains not redundant operands" in {
-//    val expressions = List(MkSum(2, 3), MkSum(1, 4), MkSum(-1, 2))
-//    val expectedProgram = Program(expressions)
-//    val program = RefactorWithAllRules(expectedProgram)
-//
-//    program shouldBe expectedProgram
-//  }
-//
-//  it should "return Numbers when one of operands is zero" in {
-//    val expressions = List(MkSum(2,  0), MkSum(0, -1), MkSum(0,  0))
-//    val program = RefactorWithAllRules(Program(expressions))
-//
-//    val expectedExpressions = List(Number(2), Number(-1), Number(0))
-//    val expectedProgram = Program(expectedExpressions)
-//
-//    program shouldBe expectedProgram
-//  }
-//
-//  "Refactor Subtractions" should "return same Subtractions when contains not redundant operands" in {
-//    val expressions = List(MkSubtraction(2, 3), MkSubtraction(5, 3), MkSubtraction(0, 2))
-//    val expectedProgram = Program(expressions)
-//    val program = RefactorWithAllRules(expectedProgram)
-//
-//    program shouldBe expectedProgram
-//  }
-//
-//  it should "return Numbers when right operands is zero" in {
-//    val expressions = List(MkSubtraction(2,  0), MkSubtraction(0,  0))
-//    val program = RefactorWithAllRules(Program(expressions))
-//
-//    val expectedExpressions = List(Number(2), Number(0))
-//    val expectedProgram = Program(expectedExpressions)
-//
-//    program shouldBe expectedProgram
-//  }
-//
-//  "Refactor Multiplications" should "return same Multiplications when contains not redundant operands" in {
-//    val expressions = List(MkMultiplication(2,  3), MkMultiplication(-1, 2))
-//    val expectedProgram = Program(expressions)
-//    val program = RefactorWithAllRules(expectedProgram)
-//
-//    program shouldBe expectedProgram
-//  }
-//
-//  it should "return Numbers when one of operands is number one" in {
-//    val expressions = List(
-//      MkMultiplication(1,  2), MkMultiplication(3,  1),
-//      MkMultiplication(1,  1), MkMultiplication(-2, 1)
-//    )
-//    val program = RefactorWithAllRules(Program(expressions))
-//
-//    val expectedExpressions = List(Number(2), Number(3), Number(1), Number(-2))
-//    val expectedProgram = Program(expectedExpressions)
-//
-//    program shouldBe expectedProgram
-//  }
-//
-//  it should "return zero Numbers when one of operands is zero" in {
-//    val expressions = List(
-//      MkMultiplication(0, 2), MkMultiplication(3, 0),
-//      MkMultiplication(0,  0), MkMultiplication(-2, 0)
-//    )
-//    val program = RefactorWithAllRules(Program(expressions))
-//
-//    val expectedExpressions = List(Number(0), Number(0), Number(0), Number(0))
-//    val expectedProgram = Program(expectedExpressions)
-//
-//    program shouldBe expectedProgram
-//  }
-//
-//  "Refactor Divisions" should "return same Divisions when contains not redundant operands" in {
-//    val expressions = List(MkDivision(4, 2), MkDivision(2, 3), MkDivision(-1, 2))
-//    val expectedProgram = Program(expressions)
-//    val program = RefactorWithAllRules(expectedProgram)
-//
-//    program shouldBe expectedProgram
-//  }
-//
-//  it should "return dividen Numbers when divisors are number one" in {
-//    val expressions = List(MkDivision(1, 1), MkDivision(2, 1), MkDivision(-1, 1))
-//    val program = RefactorWithAllRules(Program(expressions))
-//
-//    val expectedExpressions = List(Number(1), Number(2), Number(-1))
-//    val expectedProgram = Program(expectedExpressions)
-//
-//    program shouldBe expectedProgram
-//  }
+  "Interpret Sums" should "return resulting Number" in {
+    Interpreter(Program(MkSum(2, 3)  :: Nil)) shouldBe Number(5)
+    Interpreter(Program(MkSum(0, 0)  :: Nil)) shouldBe Number(0)
+    Interpreter(Program(MkSum(-2, 3) :: Nil)) shouldBe Number(1)
+  }
+
+
+  "Interpret Subtractions" should "return resulting Number" in {
+    Interpreter(Program(MkSubtraction(5, 1)  :: Nil)) shouldBe Number(4)
+    Interpreter(Program(MkSubtraction(0, 0)  :: Nil)) shouldBe Number(0)
+    Interpreter(Program(MkSubtraction(2, 3)  :: Nil)) shouldBe Number(-1)
+    Interpreter(Program(MkSubtraction(-2, 3) :: Nil)) shouldBe Number(-5)
+  }
+
+
+  "Interpret Multiplications" should "return resulting Number" in {
+    Interpreter(Program(MkMultiplication(5, 1)  :: Nil)) shouldBe Number(5)
+    Interpreter(Program(MkMultiplication(0, 2)  :: Nil)) shouldBe Number(0)
+    Interpreter(Program(MkMultiplication(2, 3)  :: Nil)) shouldBe Number(6)
+    Interpreter(Program(MkMultiplication(-2, 3) :: Nil)) shouldBe Number(-6)
+  }
+
+
+  "Interpret Divisions" should "return resulting Number" in {
+    Interpreter(Program(MkDivision(5, 1)  :: Nil)) shouldBe Number(5)
+    Interpreter(Program(MkDivision(4, 2)  :: Nil)) shouldBe Number(2)
+    Interpreter(Program(MkDivision(0, 2)  :: Nil)) shouldBe Number(0)
+    Interpreter(Program(MkDivision(2, 3)  :: Nil)) shouldBe Number(0)
+    Interpreter(Program(MkDivision(-2, 3) :: Nil)) shouldBe Number(0)
+  }
 
 }
