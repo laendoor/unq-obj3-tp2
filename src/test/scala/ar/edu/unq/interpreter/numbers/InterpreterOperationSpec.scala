@@ -6,9 +6,10 @@ import ar.edu.unq.program.{Interpreter, Number, Program}
 trait InterpreterOperationSpec extends BaseSpec {
 
   "Interpret Sums" should "return resulting Number" in {
-    Interpreter(Program(MkSum(2, 3)  :: Nil)) shouldBe Number(5)
-    Interpreter(Program(MkSum(0, 0)  :: Nil)) shouldBe Number(0)
-    Interpreter(Program(MkSum(-2, 3) :: Nil)) shouldBe Number(1)
+    Interpreter(Program(MkSum(2, 3)   :: Nil)) shouldBe Number(5)
+    Interpreter(Program(MkSum(0, 0)   :: Nil)) shouldBe Number(0)
+    Interpreter(Program(MkSum(-2, 3)  :: Nil)) shouldBe Number(1)
+    Interpreter(Program(MkSum(-2, -3) :: Nil)) shouldBe Number(-5)
   }
 
 
