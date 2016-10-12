@@ -1,12 +1,9 @@
 package ar.edu.unq.refactor.numbers
 
 import ar.edu.unq._
-import ar.edu.unq.checker._
-import ar.edu.unq.numbers._
-import ar.edu.unq.program.{Number, Program, Boolean}
-import ar.edu.unq.refactor.{BaseRefactorSpec, RefactorWithAllRules}
+import ar.edu.unq.program.{Boolean, Program}
 
-trait RefactorComparisionSpec extends BaseRefactorSpec {
+trait RefactorComparisionSpec extends BaseSpec {
 
   "Refactor Equals" should "return True Booleans when compared numbers are equals" in {
     val expressions = List(MkEquals(0, 0), MkEquals(1, 1), MkEquals(2, 2))

@@ -2,9 +2,8 @@ package ar.edu.unq.refactor.numbers
 
 import ar.edu.unq._
 import ar.edu.unq.program.{Number, Program}
-import ar.edu.unq.refactor.{BaseRefactorSpec, RefactorWithAllRules}
 
-trait RefactorOperationSpec extends BaseRefactorSpec {
+trait RefactorOperationSpec extends BaseSpec {
 
   "Refactor Sums" should "return same Sums when contains not redundant operands" in {
     val expressions = List(MkSum(2, 3), MkSum(1, 4), MkSum(-1, 2))
