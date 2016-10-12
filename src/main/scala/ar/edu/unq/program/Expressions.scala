@@ -1,14 +1,14 @@
 package ar.edu.unq.program
 
 /**
-  * Expresión
+  * Expresión: Todo es una expresión. Las Expresiones pueden ser Valores u Operaciones.
   */
 abstract class Expression {
-  def execute: Expression
+  def execute: Value
 }
 
 abstract class Value extends Expression {
-  override def execute: Expression = this
+  override def execute = this
 }
 
 case class Number(value: Int) extends Value
