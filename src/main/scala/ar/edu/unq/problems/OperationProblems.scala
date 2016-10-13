@@ -1,6 +1,6 @@
-package ar.edu.unq.numbers
+package ar.edu.unq.problems
 
-import ar.edu.unq.program.{ErrorProblem, WarningProblem}
+import ar.edu.unq.program._
 
 abstract class RedundantOperationProblem(description: String, op: Operation)
   extends WarningProblem(s"Redundant operation: $description", op)

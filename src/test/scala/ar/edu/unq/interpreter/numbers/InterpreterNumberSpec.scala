@@ -1,7 +1,7 @@
 package ar.edu.unq.interpreter.numbers
 
+import ar.edu.unq.program.{Boolean, Interpreter, Number, Program}
 import ar.edu.unq.BaseSpec
-import ar.edu.unq.program.{Interpreter, Boolean, Number, Program}
 
 trait InterpreterNumberSpec extends BaseSpec {
 

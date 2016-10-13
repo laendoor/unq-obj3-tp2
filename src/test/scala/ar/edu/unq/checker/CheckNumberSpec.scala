@@ -1,4 +1,4 @@
-package ar.edu.unq.checker.numbers
+package ar.edu.unq.checker
 
 import ar.edu.unq._
 import ar.edu.unq.program.{Number, Program}

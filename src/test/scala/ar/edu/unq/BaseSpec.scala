@@ -16,7 +16,7 @@ abstract class BaseSpec extends FlatSpec
   *
   */
 object CheckAllRules {
-  def apply(program: Program) = Checker(program, allRules)
+  def apply(program: Program) = Checker(program, allRules, Nil)
 
   def allRules: List[CheckerRule] = {
     List(

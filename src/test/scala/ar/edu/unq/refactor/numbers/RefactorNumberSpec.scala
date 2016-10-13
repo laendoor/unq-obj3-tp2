@@ -1,7 +1,7 @@
 package ar.edu.unq.refactor.numbers
 
-import ar.edu.unq.{BaseSpec, RefactorWithAllRules}
 import ar.edu.unq.program.{Number, Program}
+import ar.edu.unq.{BaseSpec, RefactorWithAllRules}
 
 trait RefactorNumberSpec extends BaseSpec {
 

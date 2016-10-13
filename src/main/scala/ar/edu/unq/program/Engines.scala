@@ -1,6 +1,6 @@
 package ar.edu.unq.program
 
-import ar.edu.unq.program.AliasType.{CheckerRule, RefactorRule}
+import ar.edu.unq.program.AliasType.{CheckerGlobalRule, CheckerRule, RefactorRule}
 
 /**
   * Un Chequeador recibe un programa y una lista de reglas de chequeo.
@@ -10,7 +10,11 @@ import ar.edu.unq.program.AliasType.{CheckerRule, RefactorRule}
   * Retorna una lista de Problemas
   */
 object Checker {
-  def apply(program: Program, rules: List[CheckerRule]) = program.expressions flatMap { exp => checkRules(exp, rules) }
+  def apply(program: Program, exprsRules: List[CheckerRule], globalRules: List[CheckerGlobalRule]) = {
+    val globalProblems = globalRules flatMap { rule => rule(program.expressions) }
+    val expressionProblems = program.expressions flatMap { exp => checkRules(exp, exprsRules) }
+    globalProblems ::: expressionProblems
+  }
 
   def checkRules(expression: Expression, rules: List[CheckerRule]) = rules flatMap { rule => rule(expression) }
 }
@@ -25,7 +29,8 @@ object Checker {
 object Refactor {
 
   def apply(program: Program, rules: List[RefactorRule]): Program = {
-    Program(rules.foldLeft(program.expressions) {(exprs,rule) => refactorRules(rule,exprs)})
+    val expressions = rules.foldLeft(program.expressions) {(exprs,rule) => refactorRules(rule,exprs)}
+    Program(expressions)
   }
 
   def refactorRules(rule: RefactorRule, expressions: List[Expression]) = expressions map rule
@@ -42,12 +47,12 @@ object Refactor {
 object Interpreter {
 
   def apply(program: Program): Value = {
-    execute(program.expressions) match {
+    execute(program) match {
       case Nil => Boolean(false)
       case values: List[Value] => values.last
     }
   }
 
-  def execute(expressions: List[Expression]): List[Value] = expressions map { e => e.execute }
+  def execute(program: Program): List[Value] = program.expressions map { e => e.execute }
 
 }

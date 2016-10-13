@@ -1,7 +1,6 @@
 package ar.edu.unq
 
 import ar.edu.unq.program._
-import ar.edu.unq.numbers._
 
 object MkSum {
   def apply(x: Int, y: Int) = Sum(Number(x), Number(y))

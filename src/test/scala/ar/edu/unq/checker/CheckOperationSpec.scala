@@ -1,8 +1,7 @@
-package ar.edu.unq.checker.numbers
+package ar.edu.unq.checker
 
 import ar.edu.unq._
-import ar.edu.unq.checker._
-import ar.edu.unq.numbers._
+import ar.edu.unq.problems._
 import ar.edu.unq.program.Program
 
 trait CheckOperationSpec extends BaseSpec {

@@ -1,6 +1,6 @@
-package ar.edu.unq.numbers
+package ar.edu.unq.problems
 
-import ar.edu.unq.program.WarningProblem
+import ar.edu.unq.program.{Comparison, WarningProblem}
 
 abstract class NonSenseComparisionProblem(description: String, cmp: Comparison)
   extends WarningProblem(s"Non-Sense Comparison: $description", cmp)

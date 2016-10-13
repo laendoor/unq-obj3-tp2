@@ -2,7 +2,7 @@ package ar.edu.unq.vars
 
 import ar.edu.unq.program.{Expression, Memory, Null, Value}
 
-class Var(key: String, value: Option[Value]) extends Expression {
+class Var(val key: String, val value: Option[Value]) extends Expression {
   override def execute: Value = {
     Memory set (key, value)
     value.getOrElse(Null)
@@ -12,15 +12,17 @@ class Var(key: String, value: Option[Value]) extends Expression {
 object Var {
   def apply(key: String) = new Var(key, None)
   def apply(key: String, value: Value) = new Var(key, Some(value))
+
+  def unapply(v: Var): Option[(String, Option[Value])] = Some(v.key, v.value)
 }
 
 case class Ref(key: String) extends Value {
-  override def execute: Value = Memory.get(key).getOrElse(Null)
+  override def execute: Value = Memory get key getOrElse Null
 }
 
 case class Assign(ref: Ref, value: Value) extends Expression {
   override def execute: Value = {
-    Memory set (ref.key, Option(value))
+    Memory set (ref.key, Some(value))
     value
   }
 }

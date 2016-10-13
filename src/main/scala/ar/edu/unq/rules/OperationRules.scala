@@ -1,6 +1,6 @@
 package ar.edu.unq.rules
 
-import ar.edu.unq.numbers._
+import ar.edu.unq.problems._
 import ar.edu.unq.program.AliasType._
 import ar.edu.unq.program._
 

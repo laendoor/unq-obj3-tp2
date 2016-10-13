@@ -8,7 +8,7 @@ abstract class Expression {
 }
 
 abstract class Value extends Expression {
-  override def execute = this
+  override def execute: Value = this
 }
 
 case object Null extends Value
