@@ -1,8 +1,8 @@
 package ar.edu.unq.rules
 
-import ar.edu.unq.problems.{DuplicatedVarProblem, VarReferencedWithoutDeclaringProblem}
+import ar.edu.unq.problems.{DuplicatedVarProblem, VarDeclaredButNeverUsedProblem, VarReferencedWithoutDeclaringProblem}
 import ar.edu.unq.program.AliasType._
-import ar.edu.unq.program.Expression
+import ar.edu.unq.program.{Boolean, Expression, Number, Sum}
 import ar.edu.unq.vars.{Ref, Var}
 
 object CheckerVarRules {
@@ -17,6 +17,10 @@ object CheckerVarRules {
       if expressions.contains(r)
       && !refIsDefinedBefore(r, expressions) => Some(VarReferencedWithoutDeclaringProblem(r))
 
+    case (v: Var, expressions)
+      if expressions.contains(v)
+      && !varIsUsed(v, expressions) => Some(VarDeclaredButNeverUsedProblem(v))
+
     case _ => None
   }
 
@@ -26,11 +30,23 @@ object CheckerVarRules {
 
   def previousVarKeys(e: Expression, es: List[Expression]): List[String] = previousVars(e, es) map { v0 => v0.key }
 
-  def previousVars(e: Expression, es: List[Expression]): List[Var] = es.splitAt(es.indexOf(e))._1.flatMap {
+  def previousVars(e: Expression, es: List[Expression]): List[Var] = splitAt(es, e)._1.flatMap {
     case v: Var => Some(v)
     case _ => None
   }
-  
+
+  def splitAt(es: List[Expression], e: Expression) = es splitAt (es indexOf e)
+
+  def varIsUsed(v: Var, es: List[Expression]): scala.Boolean = {
+    val needle = Ref(v.key)
+    splitAt(es, v)._2.flatMap {
+      case `needle` => Some(v)
+      case Sum(`needle`, _) => Some(v)
+      case Sum(_, `needle`) => Some(v)
+      case _ => None
+    } nonEmpty
+  }
+
 }
 
 object RefactorVarRules {

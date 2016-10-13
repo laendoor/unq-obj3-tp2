@@ -1,8 +1,8 @@
 package ar.edu.unq.checker
 
 import ar.edu.unq._
-import ar.edu.unq.problems.{DuplicatedVarProblem, VarReferencedWithoutDeclaringProblem}
-import ar.edu.unq.program.{Number, Program}
+import ar.edu.unq.problems.{DuplicatedVarProblem, VarDeclaredButNeverUsedProblem, VarReferencedWithoutDeclaringProblem}
+import ar.edu.unq.program.{Boolean, Number, Program}
 import ar.edu.unq.vars.{Ref, Var}
 
 trait CheckVarSpec extends BaseSpec {
@@ -16,7 +16,7 @@ trait CheckVarSpec extends BaseSpec {
     val problems    = DuplicatedVarProblem(v2) :: Nil
     val expectedProblems = CheckAllRules(Program(expressions))
 
-    problems.foreach(p => expectedProblems should contain (p))
+    problems foreach (p => expectedProblems should contain (p))
   }
 
   it should "detect when a Var definition is previously instantiated" in {
@@ -27,7 +27,7 @@ trait CheckVarSpec extends BaseSpec {
     val problems    = DuplicatedVarProblem(v2) :: Nil
     val expectedProblems = CheckAllRules(Program(expressions))
 
-    problems.foreach(p => expectedProblems should contain (p))
+    problems foreach (p => expectedProblems should contain (p))
   }
 
   it should "not detect duplicated var problem if Var instantiation is after than Var declaration" in {
@@ -35,11 +35,13 @@ trait CheckVarSpec extends BaseSpec {
     val v1 = Var("foo")
     val v2 = Var("foo", Number(0))
     val expressions = v1 :: v2 :: Nil
+    val problems    = DuplicatedVarProblem(v1) :: DuplicatedVarProblem(v2) :: Nil
+    val expectedProblems = CheckAllRules(Program(expressions))
 
-    CheckAllRules(Program(expressions)) shouldBe empty
+    problems foreach (p => expectedProblems shouldNot contain (p))
   }
 
-  // b) Detectar cuando una variable se usa "antes" de su declaración.
+  // b. Detectar cuando una variable se usa "antes" de su declaración.
   it should "detect when a Var is Refer before its declaration" in {
 
     val r = Ref("foo")
@@ -48,16 +50,27 @@ trait CheckVarSpec extends BaseSpec {
     val problems    = VarReferencedWithoutDeclaringProblem(r) :: Nil
     val expectedProblems = CheckAllRules(Program(expressions))
 
-    problems.foreach(p => expectedProblems should contain (p))
+    problems foreach (p => expectedProblems should contain (p))
   }
 
-  it should "not detect var referenced witouth declaration problem if Var is Refer after its declarations" in {
+  it should "not detect var referenced without declaration problem if Var is Refer after its declarations" in {
 
     val v = Var("foo")
     val r = Ref("foo")
     val expressions = v :: r :: Nil
 
     CheckAllRules(Program(expressions)) shouldBe empty
+  }
+
+  // c. Detectar cuando una variable se declara y nunca se usa.
+  it should "detect when a Var is declared but never used" in {
+
+    val v = Var("foo")
+    val expressions = v :: Number(0) :: Boolean(true) :: Nil
+    val problems    = VarDeclaredButNeverUsedProblem(v) :: Nil
+    val expectedProblems = CheckAllRules(Program(expressions))
+
+    problems foreach (p => expectedProblems should contain (p))
   }
 
 }
