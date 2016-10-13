@@ -11,12 +11,13 @@ import ar.edu.unq.program.AliasType.{CheckerGlobalRule, CheckerRule, RefactorRul
   */
 object Checker {
   def apply(program: Program, exprsRules: List[CheckerRule], globalRules: List[CheckerGlobalRule]) = {
-    val globalProblems = globalRules flatMap { rule => rule(program.expressions) }
+    val globalProblems     = program.expressions flatMap { exp => checkGlobalRules(exp, program.expressions, globalRules) }
     val expressionProblems = program.expressions flatMap { exp => checkRules(exp, exprsRules) }
     globalProblems ::: expressionProblems
   }
 
   def checkRules(expression: Expression, rules: List[CheckerRule]) = rules flatMap { rule => rule(expression) }
+  def checkGlobalRules(e: Expression, es: List[Expression], rules: List[CheckerGlobalRule]) = rules flatMap { rule => rule((e, es)) }
 }
 
 /**

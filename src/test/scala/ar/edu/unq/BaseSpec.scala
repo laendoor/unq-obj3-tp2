@@ -16,7 +16,7 @@ abstract class BaseSpec extends FlatSpec
   *
   */
 object CheckAllRules {
-  def apply(program: Program) = Checker(program, allRules, Nil)
+  def apply(program: Program) = Checker(program, allRules, allGlobalRules)
 
   def allRules: List[CheckerRule] = {
     List(
@@ -24,6 +24,8 @@ object CheckAllRules {
       CheckerComparisonRules.smart
     )
   }
+
+  def allGlobalRules: List[CheckerGlobalRule] = CheckerVarRules.smart :: Nil
 }
 
 /**
