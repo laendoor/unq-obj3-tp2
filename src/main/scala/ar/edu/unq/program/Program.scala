@@ -17,6 +17,6 @@ case class Program(expressions: List[Expression]) {
 object AliasType {
   type CheckerRule  = PartialFunction[Expression, Option[Problem]]
   type RefactorRule = PartialFunction[Expression, Expression]
-  type CheckerGlobalRule = PartialFunction[List[Expression], Option[Problem]]
+  type CheckerGlobalRule = PartialFunction[(Expression, List[Expression]), Option[Problem]]
 }
 
