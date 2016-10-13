@@ -3,8 +3,8 @@ package ar.edu.unq.vars
 import ar.edu.unq.program.{Expression, Memory, Null, Value}
 
 class Var(val key: String, val value: Option[Value]) extends Expression {
-  override def execute: Value = {
-    Memory set (key, value)
+  override def executeIn(memory: Memory): Value = {
+    memory set (key, value)
     value.getOrElse(Null)
   }
 }
@@ -17,12 +17,12 @@ object Var {
 }
 
 case class Ref(key: String) extends Value {
-  override def execute: Value = Memory get key getOrElse Null
+  override def executeIn(memory: Memory): Value = memory get key getOrElse Null
 }
 
 case class Assign(ref: Ref, value: Value) extends Expression {
-  override def execute: Value = {
-    Memory set (ref.key, Some(value))
+  override def executeIn(memory: Memory): Value = {
+    memory set (ref.key, Some(value))
     value
   }
 }

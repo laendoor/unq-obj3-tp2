@@ -31,7 +31,7 @@ object Refactor {
 
   def apply(program: Program, rules: List[RefactorRule]): Program = {
     val expressions = rules.foldLeft(program.expressions) {(exprs,rule) => refactorRules(rule,exprs)}
-    Program(expressions)
+    new Program(expressions, program.memory)
   }
 
   def refactorRules(rule: RefactorRule, expressions: List[Expression]) = expressions map rule
@@ -54,6 +54,6 @@ object Interpreter {
     }
   }
 
-  def execute(program: Program): List[Value] = program.expressions map { e => e.execute }
+  def execute(program: Program): List[Value] = program.expressions map { e => e.executeIn(program.memory) }
 
 }

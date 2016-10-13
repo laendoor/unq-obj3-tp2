@@ -2,6 +2,10 @@ package ar.edu.unq
 
 import ar.edu.unq.program._
 
+object MkProgram {
+  def apply(es: List[Expression]): Program = new Program(es, new Memory)
+}
+
 object MkSum {
   def apply(x: Int, y: Int) = Sum(Number(x), Number(y))
 }

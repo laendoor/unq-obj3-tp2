@@ -14,7 +14,7 @@ trait CheckVarSpec extends BaseSpec {
     val v2 = Var("foo")
     val expressions = v1 :: v2 :: Nil
     val problems    = DuplicatedVarProblem(v2) :: Nil
-    val expectedProblems = CheckAllRules(Program(expressions))
+    val expectedProblems = CheckAllRules(MkProgram(expressions))
 
     problems foreach (p => expectedProblems should contain (p))
   }
@@ -25,7 +25,7 @@ trait CheckVarSpec extends BaseSpec {
     val v2 = Var("foo")
     val expressions = v1 :: v2 :: Nil
     val problems    = DuplicatedVarProblem(v2) :: Nil
-    val expectedProblems = CheckAllRules(Program(expressions))
+    val expectedProblems = CheckAllRules(MkProgram(expressions))
 
     problems foreach (p => expectedProblems should contain (p))
   }
@@ -36,7 +36,7 @@ trait CheckVarSpec extends BaseSpec {
     val v2 = Var("foo", Number(0))
     val expressions = v1 :: v2 :: Nil
     val problems    = DuplicatedVarProblem(v1) :: DuplicatedVarProblem(v2) :: Nil
-    val expectedProblems = CheckAllRules(Program(expressions))
+    val expectedProblems = CheckAllRules(MkProgram(expressions))
 
     problems foreach (p => expectedProblems shouldNot contain (p))
   }
@@ -48,7 +48,7 @@ trait CheckVarSpec extends BaseSpec {
     val v = Var("foo")
     val expressions = r :: v :: Nil
     val problems    = VarReferencedWithoutDeclaringProblem(r) :: Nil
-    val expectedProblems = CheckAllRules(Program(expressions))
+    val expectedProblems = CheckAllRules(MkProgram(expressions))
 
     problems foreach (p => expectedProblems should contain (p))
   }
@@ -59,7 +59,7 @@ trait CheckVarSpec extends BaseSpec {
     val r = Ref("foo")
     val expressions = v :: r :: Nil
 
-    CheckAllRules(Program(expressions)) shouldBe empty
+    CheckAllRules(MkProgram(expressions)) shouldBe empty
   }
 
   // c. Detectar cuando una variable se declara y nunca se usa.
@@ -68,7 +68,7 @@ trait CheckVarSpec extends BaseSpec {
     val v = Var("foo")
     val expressions = v :: Number(0) :: Boolean(true) :: Nil
     val problems    = VarDeclaredButNeverUsedProblem(v) :: Nil
-    val expectedProblems = CheckAllRules(Program(expressions))
+    val expectedProblems = CheckAllRules(MkProgram(expressions))
 
     problems foreach (p => expectedProblems should contain (p))
   }

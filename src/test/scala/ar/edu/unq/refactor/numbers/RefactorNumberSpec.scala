@@ -1,14 +1,14 @@
 package ar.edu.unq.refactor.numbers
 
-import ar.edu.unq.program.{Number, Program}
-import ar.edu.unq.{BaseSpec, RefactorWithAllRules}
+import ar.edu.unq.program.Number
+import ar.edu.unq.{BaseSpec, MkProgram, RefactorWithAllRules}
 
 trait RefactorNumberSpec extends BaseSpec {
 
   "Refactor Numbers" should "return same Numbers" in {
     val expressions = List(Number(-2), Number(-1), Number(0), Number(1), Number(2))
-    val expectedProgram = Program(expressions)
-    val program = RefactorWithAllRules(Program(expressions))
+    val expectedProgram = MkProgram(expressions)
+    val program = RefactorWithAllRules(MkProgram(expressions))
 
     program shouldBe expectedProgram
   }
