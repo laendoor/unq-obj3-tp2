@@ -11,5 +11,6 @@ abstract class Value extends Expression {
   override def execute = this
 }
 
+case object Null extends Value
 case class Number(value: Int) extends Value
 case class Boolean(value: scala.Boolean) extends Value
