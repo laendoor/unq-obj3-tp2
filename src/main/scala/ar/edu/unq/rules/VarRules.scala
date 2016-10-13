@@ -1,37 +1,36 @@
 package ar.edu.unq.rules
 
-import ar.edu.unq.problems.DuplicatedVarProblem
+import ar.edu.unq.problems.{DuplicatedVarProblem, VarReferencedWithoutDeclaringProblem}
 import ar.edu.unq.program.AliasType._
 import ar.edu.unq.program.Expression
-import ar.edu.unq.vars.Var
+import ar.edu.unq.vars.{Ref, Var}
 
 object CheckerVarRules {
 
   val smart: CheckerGlobalRule = {
-    case (v @ Var(key, None), expressions)
-      if expressions.contains(v) && isDefinedBefore(v, expressions) => Some(DuplicatedVarProblem(v))
+
+    case (v @ Var(_, None), expressions)
+      if expressions.contains(v)
+      && varIsDefinedBefore(v, expressions) => Some(DuplicatedVarProblem(v))
+
+    case (r: Ref, expressions)
+      if expressions.contains(r)
+      && !refIsDefinedBefore(r, expressions) => Some(VarReferencedWithoutDeclaringProblem(r))
+
     case _ => None
   }
 
-  /**
-    * Detecta si una Var fue definida en una expresión anterior.
-    *
-    * Metodología: Se parte la lista de expresiones en dos a través de la variable buscada.
-    * @param v
-    * @param expressions
-    * @return
-    */
-  def isDefinedBefore(v: Var, expressions: List[Expression]) = {
+  def varIsDefinedBefore(v: Var, es: List[Expression]) = previousVarKeys(v, es) contains v.key
 
-    val vars: List[Var] = expressions.splitAt(expressions.indexOf(v))._1.flatMap {
-      case v: Var => Some(v)
-      case _ => None
-    }
+  def refIsDefinedBefore(r: Ref, es: List[Expression]) = previousVarKeys(r, es) contains r.key
 
-    vars.map { v0 => v0.key } contains v.key
+  def previousVarKeys(e: Expression, es: List[Expression]): List[String] = previousVars(e, es) map { v0 => v0.key }
+
+  def previousVars(e: Expression, es: List[Expression]): List[Var] = es.splitAt(es.indexOf(e))._1.flatMap {
+    case v: Var => Some(v)
+    case _ => None
   }
-
-
+  
 }
 
 object RefactorVarRules {
