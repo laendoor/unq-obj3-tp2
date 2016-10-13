@@ -2,7 +2,7 @@ package ar.edu.unq.checker
 
 import ar.edu.unq._
 import ar.edu.unq.problems.{DuplicatedVarProblem, VarDeclaredButNeverUsedProblem, VarReferencedWithoutDeclaringProblem}
-import ar.edu.unq.program.{Boolean, Number, Program}
+import ar.edu.unq.program._
 import ar.edu.unq.vars.{Ref, Var}
 
 trait CheckVarSpec extends BaseSpec {
@@ -71,6 +71,58 @@ trait CheckVarSpec extends BaseSpec {
     val expectedProblems = CheckAllRules(MkProgram(expressions))
 
     problems foreach (p => expectedProblems should contain (p))
+  }
+
+  it should "not detect var-declared-but-never-used-problem when a Var is declared and used in Sum" in {
+
+    val v0 = Var("zero", Number(0))
+    val v1 = Var("one", Number(1))
+    val s0 = Sum(Ref("zero"), Number(10))
+    val s1 = Sum(Number(2), Ref("one"))
+    val expressions = List(v0, v1, s0, s1)
+    val problems    = VarDeclaredButNeverUsedProblem(v0) :: VarDeclaredButNeverUsedProblem(v1) :: Nil
+    val expectedProblems = CheckAllRules(MkProgram(expressions))
+
+    problems foreach (p => expectedProblems shouldNot contain (p))
+  }
+
+  it should "not detect var-declared-but-never-used-problem when a Var is declared and used in Subtraction" in {
+
+    val v0 = Var("zero", Number(0))
+    val v1 = Var("one", Number(1))
+    val s0 = Subtraction(Ref("zero"), Number(10))
+    val s1 = Subtraction(Number(2), Ref("one"))
+    val expressions = List(v0, v1, s0, s1)
+    val problems    = VarDeclaredButNeverUsedProblem(v0) :: VarDeclaredButNeverUsedProblem(v1) :: Nil
+    val expectedProblems = CheckAllRules(MkProgram(expressions))
+
+    problems foreach (p => expectedProblems shouldNot contain (p))
+  }
+
+  it should "not detect var-declared-but-never-used-problem when a Var is declared and used in Division" in {
+
+    val v0 = Var("zero", Number(0))
+    val v1 = Var("one", Number(1))
+    val s0 = Division(Ref("zero"), Number(10))
+    val s1 = Division(Number(2), Ref("one"))
+    val expressions = List(v0, v1, s0, s1)
+    val problems    = VarDeclaredButNeverUsedProblem(v0) :: VarDeclaredButNeverUsedProblem(v1) :: Nil
+    val expectedProblems = CheckAllRules(MkProgram(expressions))
+
+    problems foreach (p => expectedProblems shouldNot contain (p))
+  }
+
+  it should "not detect var-declared-but-never-used-problem when a Var is declared and used in Multiplication" in {
+
+    val v0 = Var("zero", Number(0))
+    val v1 = Var("one", Number(1))
+    val s0 = Multiplication(Ref("zero"), Number(10))
+    val s1 = Multiplication(Number(2), Ref("one"))
+    val expressions = List(v0, v1, s0, s1)
+    val problems    = VarDeclaredButNeverUsedProblem(v0) :: VarDeclaredButNeverUsedProblem(v1) :: Nil
+    val expectedProblems = CheckAllRules(MkProgram(expressions))
+
+    problems foreach (p => expectedProblems shouldNot contain (p))
   }
 
 }

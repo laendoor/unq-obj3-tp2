@@ -2,7 +2,7 @@ package ar.edu.unq.rules
 
 import ar.edu.unq.problems.{DuplicatedVarProblem, VarDeclaredButNeverUsedProblem, VarReferencedWithoutDeclaringProblem}
 import ar.edu.unq.program.AliasType._
-import ar.edu.unq.program.{Boolean, Expression, Number, Sum}
+import ar.edu.unq.program.{Boolean, Division, Expression, Number, Operation, Subtraction, Sum}
 import ar.edu.unq.vars.{Ref, Var}
 
 object CheckerVarRules {
@@ -41,8 +41,7 @@ object CheckerVarRules {
     val needle = Ref(v.key)
     splitAt(es, v)._2.flatMap {
       case `needle` => Some(v)
-      case Sum(`needle`, _) => Some(v)
-      case Sum(_, `needle`) => Some(v)
+      case v: Operation if List(v.x, v.y) contains `needle` => Some(v)
       case _ => None
     } nonEmpty
   }
