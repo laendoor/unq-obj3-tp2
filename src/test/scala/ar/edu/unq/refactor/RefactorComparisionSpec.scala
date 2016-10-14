@@ -1,4 +1,4 @@
-package ar.edu.unq.refactor.numbers
+package ar.edu.unq.refactor
 
 import ar.edu.unq._
 import ar.edu.unq.program.Boolean
