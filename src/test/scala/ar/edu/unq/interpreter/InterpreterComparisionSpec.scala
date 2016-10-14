@@ -1,7 +1,7 @@
-package ar.edu.unq.interpreter.numbers
+package ar.edu.unq.interpreter
 
 import ar.edu.unq._
-import ar.edu.unq.program.{Interpreter, Program, Boolean}
+import ar.edu.unq.program.{Boolean, Interpreter}
 
 trait InterpreterComparisionSpec extends BaseSpec {
 

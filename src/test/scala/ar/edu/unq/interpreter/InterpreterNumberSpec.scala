@@ -1,4 +1,4 @@
-package ar.edu.unq.interpreter.numbers
+package ar.edu.unq.interpreter
 
 import ar.edu.unq.program.{Boolean, Interpreter, Number}
 import ar.edu.unq.{BaseSpec, MkProgram}
