@@ -20,9 +20,8 @@ case class Ref(key: String) extends Value {
   override def executeIn(memory: Memory): Option[Value] = memory(key) orElse None
 }
 
-case class Assign(ref: Ref, value: Value) extends Expression {
+case class Assign(ref: Ref, value: Expression) extends Expression {
   override def executeIn(memory: Memory): Option[Value] = {
-    memory(ref.key, Some(value))
-    Some(value)
+    memory(ref.key, value executeIn memory)
   }
 }

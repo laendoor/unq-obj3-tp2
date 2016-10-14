@@ -21,9 +21,11 @@ trait InterpreterVarSpec extends BaseSpec {
   }
 
   it should "return its Value when is declared and then assigned" in {
-    val v0 = Var("foo")
-    val v1 = Assign(Ref("foo"), Number(42))
-    val result = Interpreter apply MkProgram(v0 :: v1 :: Nil)
+    val result = Interpreter apply MkProgram(List(
+      Var("foo"),
+      Assign(Ref("foo"), Number(42)),
+      Ref("foo")
+    ))
 
     result.get shouldBe Number(42)
   }

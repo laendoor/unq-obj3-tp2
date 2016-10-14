@@ -4,7 +4,7 @@ import scala.collection.mutable
 
 class Memory {
   def apply(key: String) = get(key)
-  def apply(key: String, value: Option[Value]) = set(key, value)
+  def apply(key: String, value: Option[Value]) = set(key, value).flatten
 
   val varsMap = mutable.Map[String, Option[Value]]()
 
