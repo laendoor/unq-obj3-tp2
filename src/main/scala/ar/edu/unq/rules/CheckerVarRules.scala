@@ -7,7 +7,7 @@ import ar.edu.unq.vars.{Assign, Ref, Var}
 
 object CheckerVarRules {
 
-  val smart: CheckerGlobalRule = {
+  val definitions: CheckerGlobalRule = {
 
     case (v @ Var(_, None), expressions)
       if expressions.contains(v)
@@ -15,7 +15,12 @@ object CheckerVarRules {
 
     case (r: Ref, expressions)
       if expressions.contains(r)
-      && !refIsDefinedBefore(r, expressions) => Some(VarReferencedWithoutDeclaringProblem(r))
+        && !refIsDefinedBefore(r, expressions) => Some(VarReferencedWithoutDeclaringProblem(r))
+
+    case _ => None
+  }
+
+  val uses: CheckerGlobalRule = {
 
     case (v: Var, expressions)
       if expressions.contains(v)
@@ -43,7 +48,7 @@ object CheckerVarRules {
 
   def varIsUsed(v: Var, es: List[Expression]): scala.Boolean = {
     val ref = Ref(v.key)
-    splitAt(es, v)._2.exists {
+    splitAt(es, v)._2 exists {
       case `ref` => true
       case v: Operation if List(v.x, v.y) contains `ref` => true
       case _ => false
@@ -51,7 +56,7 @@ object CheckerVarRules {
   }
 
   def refHasValueAssigned(r: Ref, es: List[Expression]): scala.Boolean = {
-    splitAt(es, r)._1.exists {
+    splitAt(es, r)._1 exists {
       case Var(r.key, Some(_)) => true
       case Assign(Ref(r.key), _) => true
       case _ => false

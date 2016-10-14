@@ -25,7 +25,10 @@ object CheckAllRules {
     )
   }
 
-  def allGlobalRules: List[CheckerGlobalRule] = CheckerVarRules.smart :: Nil
+  def allGlobalRules: List[CheckerGlobalRule] = List(
+    CheckerVarRules.definitions,
+    CheckerVarRules.uses
+  )
 }
 
 /**
