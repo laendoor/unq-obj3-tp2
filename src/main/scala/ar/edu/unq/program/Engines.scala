@@ -47,13 +47,13 @@ object Refactor {
   */
 object Interpreter {
 
-  def apply(program: Program): Value = {
+  def apply(program: Program): Option[Value] = {
     execute(program) match {
-      case Nil => Boolean(false)
-      case values: List[Value] => values.last
+      case Nil => None
+      case values: List[Value] => Some(values.last)
     }
   }
 
-  def execute(program: Program): List[Value] = program.expressions flatMap { e => e.executeIn(program.memory) }
+  def execute(program: Program): List[Value] = program.expressions flatMap { e => e executeIn program.memory }
 
 }
