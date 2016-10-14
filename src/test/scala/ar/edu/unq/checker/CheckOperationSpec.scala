@@ -18,7 +18,7 @@ trait CheckOperationSpec extends BaseSpec {
     val problems    = expressions map SumZeroProblem
     val expectedProblems = CheckAllRules(MkProgram(expressions))
 
-    problems.foreach(p => expectedProblems should contain (p))
+    problems foreach {p => expectedProblems should contain (p)}
   }
 
   "Check Subtractions" should "not contain problems with valid operands" in {
@@ -33,7 +33,7 @@ trait CheckOperationSpec extends BaseSpec {
     val problems    = expressions map SubZeroProblem
     val expectedProblems = CheckAllRules(MkProgram(expressions))
 
-    problems.foreach(p => expectedProblems should contain (p))
+    problems foreach {p => expectedProblems should contain (p)}
   }
 
   "Check Multiplications" should "not contain problems with valid operands" in {
@@ -51,7 +51,7 @@ trait CheckOperationSpec extends BaseSpec {
     val problems    = expressions map MultiplyByOneProblem
     val expectedProblems = CheckAllRules(MkProgram(expressions))
 
-    problems.foreach(p => expectedProblems should contain (p))
+    problems foreach {p => expectedProblems should contain (p)}
   }
 
   it should "contain a warning problem and redundancy message with Number(0) in ar least one of the operands" in {
@@ -62,7 +62,7 @@ trait CheckOperationSpec extends BaseSpec {
     val problems    = expressions map MultiplyByZeroProblem
     val expectedProblems = CheckAllRules(MkProgram(expressions))
 
-    problems.foreach(p => expectedProblems should contain (p))
+    problems foreach {p => expectedProblems should contain (p)}
   }
 
   "Check Divisions" should "not contain problems valid operands" in {
@@ -77,7 +77,7 @@ trait CheckOperationSpec extends BaseSpec {
     val problems    = expressions map DivideByOneProblem
     val expectedProblems = CheckAllRules(MkProgram(expressions))
 
-    problems.foreach(p => expectedProblems should contain (p))
+    problems foreach {p => expectedProblems should contain (p)}
   }
 
   it should "contain an error problem and invalid operation message with Number(0) in divisor" in {
@@ -85,7 +85,7 @@ trait CheckOperationSpec extends BaseSpec {
     val problems    = expressions map DivideByZeroProblem
     val expectedProblems = CheckAllRules(MkProgram(expressions))
 
-    problems.foreach(p => expectedProblems should contain (p))
+    problems foreach {p => expectedProblems should contain (p)}
   }
 
 }

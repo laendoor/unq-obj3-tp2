@@ -11,7 +11,7 @@ trait CheckComparisionSpec extends BaseSpec {
     val problems    = expressions map TrueComparisonProblem
     val expectedProblems = CheckAllRules(MkProgram(expressions))
 
-    problems.foreach(p => expectedProblems should contain (p))
+    problems foreach {p => expectedProblems should contain (p)}
   }
 
   it should "contain a warning problem and an always-false comparison message if numbers are different" in {
@@ -22,7 +22,7 @@ trait CheckComparisionSpec extends BaseSpec {
     val problems = expressions map FalseComparisonProblem
     val expectedProblems = CheckAllRules(MkProgram(expressions))
 
-    problems.foreach(p => expectedProblems should contain (p))
+    problems foreach {p => expectedProblems should contain (p)}
   }
 
   "Check Distinct" should "contain a warning problem and an always-true comparison message if numbers are different" in {
@@ -33,7 +33,7 @@ trait CheckComparisionSpec extends BaseSpec {
     val problems = expressions map TrueComparisonProblem
     val expectedProblems = CheckAllRules(MkProgram(expressions))
 
-    problems.foreach(p => expectedProblems should contain (p))
+    problems foreach {p => expectedProblems should contain (p)}
   }
 
   it should "contain a warning problem and an always-false comparison message if numbers are equals" in {
@@ -41,7 +41,7 @@ trait CheckComparisionSpec extends BaseSpec {
     val problems = expressions map FalseComparisonProblem
     val expectedProblems = CheckAllRules(MkProgram(expressions))
 
-    problems.foreach(p => expectedProblems should contain (p))
+    problems foreach {p => expectedProblems should contain (p)}
   }
 
   "Check Lesser" should "contain a warning problem and an always-true comparison message if first number is lesser than second" in {
@@ -49,7 +49,7 @@ trait CheckComparisionSpec extends BaseSpec {
     val problems = expressions map TrueComparisonProblem
     val expectedProblems = CheckAllRules(MkProgram(expressions))
 
-    problems.foreach(p => expectedProblems should contain (p))
+    problems foreach {p => expectedProblems should contain (p)}
   }
 
   it should "contain a warning problem and an always-false comparison message if first number is greater-or-equals than second" in {
@@ -57,7 +57,7 @@ trait CheckComparisionSpec extends BaseSpec {
     val problems = expressions map FalseComparisonProblem
     val expectedProblems = CheckAllRules(MkProgram(expressions))
 
-    problems.foreach(p => expectedProblems should contain (p))
+    problems foreach {p => expectedProblems should contain (p)}
   }
 
   "Check Greater" should "contain a warning problem and an always-true comparison message if first number is greater than second" in {
@@ -65,7 +65,7 @@ trait CheckComparisionSpec extends BaseSpec {
     val problems = expressions map TrueComparisonProblem
     val expectedProblems = CheckAllRules(MkProgram(expressions))
 
-    problems.foreach(p => expectedProblems should contain (p))
+    problems foreach {p => expectedProblems should contain (p)}
   }
 
   it should "contain a warning problem and an always-false comparison message if first number is lesser-or-equals than second" in {
@@ -73,7 +73,7 @@ trait CheckComparisionSpec extends BaseSpec {
     val problems = expressions map FalseComparisonProblem
     val expectedProblems = CheckAllRules(MkProgram(expressions))
 
-    problems.foreach(p => expectedProblems should contain (p))
+    problems foreach {p => expectedProblems should contain (p)}
   }
 
   "Check LesserOrEquals" should "contain a warning problem and an always-true comparison message if first number is lesser-or-equal than second" in {
@@ -81,7 +81,7 @@ trait CheckComparisionSpec extends BaseSpec {
     val problems = expressions map TrueComparisonProblem
     val expectedProblems = CheckAllRules(MkProgram(expressions))
 
-    problems.foreach(p => expectedProblems should contain (p))
+    problems foreach {p => expectedProblems should contain (p)}
   }
 
   it should "contain a warning problem and an always-false comparison message if first number is greater than second" in {
@@ -89,7 +89,7 @@ trait CheckComparisionSpec extends BaseSpec {
     val problems = expressions map FalseComparisonProblem
     val expectedProblems = CheckAllRules(MkProgram(expressions))
 
-    problems.foreach(p => expectedProblems should contain (p))
+    problems foreach {p => expectedProblems should contain (p)}
   }
 
   "Check GreaterOrEquals" should "contain a warning problem and an always-true comparison message if first number is greater-or-equal than second" in {
@@ -100,7 +100,7 @@ trait CheckComparisionSpec extends BaseSpec {
     val problems = expressions map TrueComparisonProblem
     val expectedProblems = CheckAllRules(MkProgram(expressions))
 
-    problems.foreach(p => expectedProblems should contain (p))
+    problems foreach {p => expectedProblems should contain (p)}
   }
 
   it should "contain a warning problem and an always-false comparison message if first number is lesser than second" in {
@@ -108,7 +108,7 @@ trait CheckComparisionSpec extends BaseSpec {
     val problems = expressions map FalseComparisonProblem
     val expectedProblems = CheckAllRules(MkProgram(expressions))
 
-    problems.foreach(p => expectedProblems should contain (p))
+    problems foreach {p => expectedProblems should contain (p)}
   }
 
 }
