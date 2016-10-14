@@ -1,6 +1,6 @@
 package ar.edu.unq.rules
 
-import ar.edu.unq.problems.{DuplicatedVarProblem, VarDeclaredButNeverUsedProblem, VarReferencedWithoutDeclaringProblem}
+import ar.edu.unq.problems._
 import ar.edu.unq.program.AliasType._
 import ar.edu.unq.program.{Boolean, Division, Expression, Number, Operation, Subtraction, Sum}
 import ar.edu.unq.vars.{Ref, Var}
@@ -20,6 +20,12 @@ object CheckerVarRules {
     case (v: Var, expressions)
       if expressions.contains(v)
       && !varIsUsed(v, expressions) => Some(VarDeclaredButNeverUsedProblem(v))
+
+    case(r: Ref , expressions)
+      if !expressions.contains(r) => Some(VarDeclaredReferenceNotValid(r))//supongo que se la referencia esta la variable esta
+
+    case (v @ Var(a,None), expressions)
+      if expressions.contains(v) && varIsUsed(v,expressions) => Some(VarDeclaredNotUnassigned(v))
 
     case _ => None
   }

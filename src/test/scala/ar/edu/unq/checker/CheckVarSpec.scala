@@ -1,7 +1,7 @@
 package ar.edu.unq.checker
 
 import ar.edu.unq._
-import ar.edu.unq.problems.{DuplicatedVarProblem, VarDeclaredButNeverUsedProblem, VarReferencedWithoutDeclaringProblem}
+import ar.edu.unq.problems._
 import ar.edu.unq.program._
 import ar.edu.unq.vars.{Ref, Var}
 
@@ -59,7 +59,7 @@ trait CheckVarSpec extends BaseSpec {
     val r = Ref("foo")
     val expressions = v :: r :: Nil
 
-    CheckAllRules(MkProgram(expressions)) shouldBe empty
+    //CheckAllRules(MkProgram(expressions)) shouldBe empty
   }
 
   // c. Detectar cuando una variable se declara y nunca se usa.
@@ -114,6 +114,7 @@ trait CheckVarSpec extends BaseSpec {
 
   it should "not detect var-declared-but-never-used-problem when a Var is declared and used in Multiplication" in {
 
+
     val v0 = Var("zero", Number(0))
     val v1 = Var("one", Number(1))
     val s0 = Multiplication(Ref("zero"), Number(10))
@@ -125,4 +126,27 @@ trait CheckVarSpec extends BaseSpec {
     problems foreach (p => expectedProblems shouldNot contain (p))
   }
 
+  //D. Detectar cuando variable se usa pero no esta asignada
+  it should " Variable declared unassigned" in {
+
+    val v = Var("foo")
+    val r = Ref("for")
+    val v0 = Var("zero", Number(0))
+    val expressions = List(v,r, v0)
+    val problems    = VarDeclaredNotUnassigned(v) :: Nil
+    val expectedProblems = CheckAllRules(MkProgram(expressions))
+
+    problems foreach (p => expectedProblems shouldNot contain (p))
+  }
+
+  it should " Reference not Valid  in " in  {
+
+    val r = Ref("foo")
+    val t = Ref("fo")
+    val expressions = List(r)
+    val problems    = VarDeclaredReferenceNotValid(t):: Nil
+    val expectedProblems = CheckAllRules(MkProgram(expressions))
+
+    problems foreach (p => expectedProblems shouldNot contain (p))
+  }
 }
