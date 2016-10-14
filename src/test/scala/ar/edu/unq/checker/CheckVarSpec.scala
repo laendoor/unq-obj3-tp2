@@ -3,7 +3,7 @@ package ar.edu.unq.checker
 import ar.edu.unq._
 import ar.edu.unq.problems._
 import ar.edu.unq.program._
-import ar.edu.unq.vars.{Ref, Var}
+import ar.edu.unq.vars.{Assign, Ref, Var}
 
 trait CheckVarSpec extends BaseSpec {
 
@@ -136,6 +136,27 @@ trait CheckVarSpec extends BaseSpec {
     val expectedProblems = CheckAllRules apply MkProgram(List(v,r))
 
     problems foreach (p => expectedProblems should contain (p))
+  }
+
+  it should "not detect when a var reference was assigned on declaration" in {
+
+    val v = Var("foo", Number(10))
+    val r = Ref("foo")
+    val problems    = VarUsedButNeverAssignedProblem(r) :: Nil
+    val expectedProblems = CheckAllRules apply MkProgram(List(v,r))
+
+    problems foreach (p => expectedProblems shouldNot contain (p))
+  }
+
+  it should "not detect when a var reference was assigned explicitly" in {
+
+    val v = Var("foo")
+    val a = Assign(Ref("foo"), Number(10))
+    val r = Ref("foo")
+    val problems    = VarUsedButNeverAssignedProblem(r) :: Nil
+    val expectedProblems = CheckAllRules apply MkProgram(List(v,a,r))
+
+    problems foreach (p => expectedProblems shouldNot contain (p))
   }
 
 }
