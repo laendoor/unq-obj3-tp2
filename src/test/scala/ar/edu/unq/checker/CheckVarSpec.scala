@@ -74,54 +74,51 @@ trait CheckVarSpec extends BaseSpec {
     problems foreach (p => expectedProblems should contain (p))
   }
 
-  it should "not detect var-declared-but-never-used-problem when a Var is declared and used in Sum" in {
+  it should "not detect var-declared-but-never-used-problem when a Var is declared and used in Operations" in {
 
-    val v0 = Var("zero", Number(0))
-    val v1 = Var("one", Number(1))
-    val s0 = Sum(Ref("zero"), Number(10))
-    val s1 = Sum(Number(2), Ref("one"))
-    val expressions = List(v0, v1, s0, s1)
-    val problems    = VarDeclaredButNeverUsedProblem(v0) :: VarDeclaredButNeverUsedProblem(v1) :: Nil
+    val v0 = Var("0", Number(0))
+    val v1 = Var("1", Number(1))
+    val v2 = Var("2", Number(2))
+    val v3 = Var("3", Number(3))
+    val op0 = Sum(Ref("0"), Number(10))
+    val op1 = Subtraction(Ref("1"), Number(-1))
+    val op2 = Division(Number(2), Ref("2"))
+    val op3 = Multiplication(Number(3), Ref("3"))
+    val expressions = List(v0, v1, v2, v3, op0, op1, op2, op3)
+    val problems    = List(
+      VarDeclaredButNeverUsedProblem(v0),
+      VarDeclaredButNeverUsedProblem(v1),
+      VarDeclaredButNeverUsedProblem(v2),
+      VarDeclaredButNeverUsedProblem(v3)
+    )
     val expectedProblems = CheckAllRules apply MkProgram(expressions)
 
     problems foreach (p => expectedProblems shouldNot contain (p))
   }
 
-  it should "not detect var-declared-but-never-used-problem when a Var is declared and used in Subtraction" in {
+  it should "not detect var-declared-but-never-used-problem when a Var is declared and used in Comparisons" in {
 
-    val v0 = Var("zero", Number(0))
-    val v1 = Var("one", Number(1))
-    val s0 = Subtraction(Ref("zero"), Number(10))
-    val s1 = Subtraction(Number(2), Ref("one"))
-    val expressions = List(v0, v1, s0, s1)
-    val problems    = VarDeclaredButNeverUsedProblem(v0) :: VarDeclaredButNeverUsedProblem(v1) :: Nil
-    val expectedProblems = CheckAllRules apply MkProgram(expressions)
-
-    problems foreach (p => expectedProblems shouldNot contain (p))
-  }
-
-  it should "not detect var-declared-but-never-used-problem when a Var is declared and used in Division" in {
-
-    val v0 = Var("zero", Number(0))
-    val v1 = Var("one", Number(1))
-    val s0 = Division(Ref("zero"), Number(10))
-    val s1 = Division(Number(2), Ref("one"))
-    val expressions = List(v0, v1, s0, s1)
-    val problems    = VarDeclaredButNeverUsedProblem(v0) :: VarDeclaredButNeverUsedProblem(v1) :: Nil
-    val expectedProblems = CheckAllRules apply MkProgram(expressions)
-
-    problems foreach (p => expectedProblems shouldNot contain (p))
-  }
-
-  it should "not detect var-declared-but-never-used-problem when a Var is declared and used in Multiplication" in {
-
-
-    val v0 = Var("zero", Number(0))
-    val v1 = Var("one", Number(1))
-    val s0 = Multiplication(Ref("zero"), Number(10))
-    val s1 = Multiplication(Number(2), Ref("one"))
-    val expressions = List(v0, v1, s0, s1)
-    val problems    = VarDeclaredButNeverUsedProblem(v0) :: VarDeclaredButNeverUsedProblem(v1) :: Nil
+    val v0 = Var("0", Number(0))
+    val v1 = Var("1", Number(1))
+    val v2 = Var("2", Number(2))
+    val v3 = Var("3", Number(3))
+    val v4 = Var("4", Number(4))
+    val v5 = Var("5", Number(5))
+    val cmp0 = Equals(Ref("0"), Number(10))
+    val cmp1 = Distinct(Ref("1"), Number(-1))
+    val cmp2 = Greater(Ref("2"), Number(2))
+    val cmp3 = Lesser(Number(3), Ref("3"))
+    val cmp4 = GreaterOrEqual(Number(3), Ref("4"))
+    val cmp5 = LesserOrEqual(Number(3), Ref("5"))
+    val expressions = List(v0, v1, v2, v3, v4, v5, cmp0, cmp1, cmp2, cmp3, cmp4, cmp5)
+    val problems    = List(
+      VarDeclaredButNeverUsedProblem(v0),
+      VarDeclaredButNeverUsedProblem(v1),
+      VarDeclaredButNeverUsedProblem(v2),
+      VarDeclaredButNeverUsedProblem(v3),
+      VarDeclaredButNeverUsedProblem(v4),
+      VarDeclaredButNeverUsedProblem(v5)
+    )
     val expectedProblems = CheckAllRules apply MkProgram(expressions)
 
     problems foreach (p => expectedProblems shouldNot contain (p))

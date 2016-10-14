@@ -14,9 +14,9 @@ class ProgramSpec extends BaseSpec {
       Assign(Ref("div"), Division(Ref("sub"), Number(2))),        //  4
       Assign(Ref("mul"), Multiplication(Ref("div"), Ref("foo"))), // 40
       Assign(Ref("res"), Sum(Number(2), Ref("mul"))),             // 42
-      Ref("res")
+      Equals(Number(42), Ref("res"))
     ))
 
-    result.get shouldBe Number(42)
+    result.get shouldBe Boolean(true)
   }
 }

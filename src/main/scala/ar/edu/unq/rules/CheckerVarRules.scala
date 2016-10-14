@@ -2,7 +2,7 @@ package ar.edu.unq.rules
 
 import ar.edu.unq.problems._
 import ar.edu.unq.program.AliasType._
-import ar.edu.unq.program.{Expression, Operation, Value}
+import ar.edu.unq.program.{Comparison, Expression, Operation, Value}
 import ar.edu.unq.vars.{Assign, Ref, Var}
 
 object CheckerVarRules {
@@ -50,7 +50,8 @@ object CheckerVarRules {
     val ref = Ref(v.key)
     splitAt(es, v)._2 exists {
       case `ref` => true
-      case v: Operation if List(v.x, v.y) contains `ref` => true
+      case  op:  Operation if List(op.x, op.y)   contains `ref` => true
+      case cmp: Comparison if List(cmp.x, cmp.y) contains `ref` => true
       case _ => false
     }
   }
