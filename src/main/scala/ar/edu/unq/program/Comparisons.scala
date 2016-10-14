@@ -1,30 +1,36 @@
 package ar.edu.unq.program
 
-import ar.edu.unq.program
+abstract class Comparison(val a: Number, val b: Number) extends Expression {
 
-abstract class Comparison(n: program.Number, m: program.Number) extends Expression
+  def exec(m: Memory, a: Number, b: Number, op: (Int, Int) => scala.Boolean): Option[Value] = {
+    val a0 = numberOf(a executeIn m).value
+    val b0 = numberOf(b executeIn m).value
+    Some apply Boolean(op(a0, b0))
+  }
 
-case class Equals(n: program.Number, m: program.Number) extends Comparison(n, m) {
-  override def executeIn(memory: Memory): Value = Boolean(n.value == m.value)
 }
 
-case class Distinct(n: program.Number, m: program.Number) extends Comparison(n, m) {
-  override def executeIn(memory: Memory): Value = Boolean(n.value != m.value)
+case class Equals(x: Number, y: Number) extends Comparison(x, y) {
+  override def executeIn(m: Memory) = exec(m, x, y, _ == _)
 }
 
-case class Greater(n: program.Number, m: program.Number) extends Comparison(n, m) {
-  override def executeIn(memory: Memory): Value = Boolean(n.value > m.value)
+case class Distinct(x: Number, y: Number) extends Comparison(x, y) {
+  override def executeIn(m: Memory) = exec(m, x, y, _ != _)
 }
 
-case class Lesser(n: program.Number, m: program.Number) extends Comparison(n, m) {
-  override def executeIn(memory: Memory): Value = Boolean(n.value < m.value)
+case class Greater(x: Number, y: Number) extends Comparison(x, y) {
+  override def executeIn(m: Memory) = exec(m, x, y, _ > _)
 }
 
-case class GreaterOrEqual(n: program.Number, m: program.Number) extends Comparison(n, m) {
-  override def executeIn(memory: Memory): Value = Boolean(n.value >= m.value)
+case class Lesser(x: Number, y: Number) extends Comparison(x, y) {
+  override def executeIn(m: Memory) = exec(m, x, y, _ < _)
 }
 
-case class LesserOrEqual(n: program.Number, m: program.Number) extends Comparison(n, m) {
-  override def executeIn(memory: Memory): Value = Boolean(n.value <= m.value)
+case class GreaterOrEqual(x: Number, y: Number) extends Comparison(x, y) {
+  override def executeIn(m: Memory) = exec(m, x, y, _ >= _)
+}
+
+case class LesserOrEqual(x: Number, y: Number) extends Comparison(x, y) {
+  override def executeIn(m: Memory) = exec(m, x, y, _ <= _)
 }
 

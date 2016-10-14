@@ -3,6 +3,8 @@ package ar.edu.unq.program
 import scala.collection.mutable
 
 class Memory {
+  def apply(key: String) = get(key)
+  def apply(key: String, value: Option[Value]) = set(key, value)
 
   val varsMap = mutable.Map[String, Option[Value]]()
 
@@ -10,7 +12,7 @@ class Memory {
 
   def set(key: String, value: Option[Value]) = varsMap put (key, value)
 
-  def get(key: String): Option[Value] = varsMap getOrElse (key, None)
+  def get(key: String): Option[Value] = varsMap get key flatten
 
   def contains(key: String) = varsMap contains key
 

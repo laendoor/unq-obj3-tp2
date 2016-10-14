@@ -54,6 +54,6 @@ object Interpreter {
     }
   }
 
-  def execute(program: Program): List[Value] = program.expressions map { e => e.executeIn(program.memory) }
+  def execute(program: Program): List[Value] = program.expressions flatMap { e => e.executeIn(program.memory) }
 
 }
