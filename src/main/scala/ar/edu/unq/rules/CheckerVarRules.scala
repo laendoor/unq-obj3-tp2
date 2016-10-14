@@ -2,8 +2,8 @@ package ar.edu.unq.rules
 
 import ar.edu.unq.problems._
 import ar.edu.unq.program.AliasType._
-import ar.edu.unq.program.{Boolean, Division, Expression, Number, Operation, Subtraction, Sum}
-import ar.edu.unq.vars.{Ref, Var}
+import ar.edu.unq.program.{Expression, Operation, Value}
+import ar.edu.unq.vars.{Assign, Ref, Var}
 
 object CheckerVarRules {
 
@@ -21,11 +21,9 @@ object CheckerVarRules {
       if expressions.contains(v)
       && !varIsUsed(v, expressions) => Some(VarDeclaredButNeverUsedProblem(v))
 
-    case(r: Ref , expressions)
-      if !expressions.contains(r) => Some(VarDeclaredReferenceNotValid(r))//supongo que se la referencia esta la variable esta
-
-    case (v @ Var(a,None), expressions)
-      if expressions.contains(v) && varIsUsed(v,expressions) => Some(VarDeclaredNotUnassigned(v))
+    case (r: Ref, expressions)
+      if expressions.contains(r)
+      && !refHasValueAssigned(r, expressions) => Some(VarUsedButNeverAssignedProblem(r))
 
     case _ => None
   }
@@ -44,26 +42,20 @@ object CheckerVarRules {
   def splitAt(es: List[Expression], e: Expression) = es splitAt (es indexOf e)
 
   def varIsUsed(v: Var, es: List[Expression]): scala.Boolean = {
-    val needle = Ref(v.key)
-    splitAt(es, v)._2.flatMap {
-      case `needle` => Some(v)
-      case v: Operation if List(v.x, v.y) contains `needle` => Some(v)
-      case _ => None
-    } nonEmpty
+    val ref = Ref(v.key)
+    splitAt(es, v)._2.exists {
+      case `ref` => true
+      case v: Operation if List(v.x, v.y) contains `ref` => true
+      case _ => false
+    }
   }
 
-}
-
-object RefactorVarRules {
-
-//  val smart: RefactorRule = {
-//    case op: Equals   => equality(op)
-//    case op: Distinct => inequality(op)
-//    case op: Lesser   => lesser(op)
-//    case op: Greater  => greater(op)
-//    case op: LesserOrEqual  => lesserOrEqual(op)
-//    case op: GreaterOrEqual => greaterOrEqual(op)
-//    case expr => expr
-//  }
+  def refHasValueAssigned(r: Ref, es: List[Expression]): scala.Boolean = {
+    splitAt(es, r)._1.exists {
+      case Var(r.key, Some(_)) => true
+      case Assign(Ref(r.key), _) => true
+      case _ => false
+    }
+  }
 
 }

@@ -12,8 +12,5 @@ case class VarReferencedWithoutDeclaringProblem(ref: Ref)
 case class VarDeclaredButNeverUsedProblem(v: Var)
   extends WarningProblem(s"Variable ${v.key} is declared but never used", v)
 
-case class VarDeclaredReferenceNotValid(ref: Ref)
-  extends WarningProblem(s"Varieble ${ref.key} is declared Not reference Valid",ref)
-
-case class VarDeclaredNotUnassigned(v: Var)
-  extends WarningProblem(s"Variable ${v.key} declared no asigned",v)
+case class VarUsedButNeverAssignedProblem(ref: Ref)
+  extends WarningProblem(s"Variable ${ref.key} has not value", ref)

@@ -14,7 +14,7 @@ trait CheckVarSpec extends BaseSpec {
     val v2 = Var("foo")
     val expressions = v1 :: v2 :: Nil
     val problems    = DuplicatedVarProblem(v2) :: Nil
-    val expectedProblems = CheckAllRules(MkProgram(expressions))
+    val expectedProblems = CheckAllRules apply MkProgram(expressions)
 
     problems foreach (p => expectedProblems should contain (p))
   }
@@ -25,7 +25,7 @@ trait CheckVarSpec extends BaseSpec {
     val v2 = Var("foo")
     val expressions = v1 :: v2 :: Nil
     val problems    = DuplicatedVarProblem(v2) :: Nil
-    val expectedProblems = CheckAllRules(MkProgram(expressions))
+    val expectedProblems = CheckAllRules apply MkProgram(expressions)
 
     problems foreach (p => expectedProblems should contain (p))
   }
@@ -36,7 +36,7 @@ trait CheckVarSpec extends BaseSpec {
     val v2 = Var("foo", Number(0))
     val expressions = v1 :: v2 :: Nil
     val problems    = DuplicatedVarProblem(v1) :: DuplicatedVarProblem(v2) :: Nil
-    val expectedProblems = CheckAllRules(MkProgram(expressions))
+    val expectedProblems = CheckAllRules apply MkProgram(expressions)
 
     problems foreach (p => expectedProblems shouldNot contain (p))
   }
@@ -48,7 +48,7 @@ trait CheckVarSpec extends BaseSpec {
     val v = Var("foo")
     val expressions = r :: v :: Nil
     val problems    = VarReferencedWithoutDeclaringProblem(r) :: Nil
-    val expectedProblems = CheckAllRules(MkProgram(expressions))
+    val expectedProblems = CheckAllRules apply MkProgram(expressions)
 
     problems foreach (p => expectedProblems should contain (p))
   }
@@ -57,9 +57,10 @@ trait CheckVarSpec extends BaseSpec {
 
     val v = Var("foo")
     val r = Ref("foo")
-    val expressions = v :: r :: Nil
+    val problems    = VarReferencedWithoutDeclaringProblem(r) :: Nil
+    val expectedProblems = CheckAllRules apply MkProgram(List(v, r))
 
-    //CheckAllRules(MkProgram(expressions)) shouldBe empty
+    problems foreach (p => expectedProblems shouldNot contain (p))
   }
 
   // c. Detectar cuando una variable se declara y nunca se usa.
@@ -68,7 +69,7 @@ trait CheckVarSpec extends BaseSpec {
     val v = Var("foo")
     val expressions = v :: Number(0) :: Boolean(true) :: Nil
     val problems    = VarDeclaredButNeverUsedProblem(v) :: Nil
-    val expectedProblems = CheckAllRules(MkProgram(expressions))
+    val expectedProblems = CheckAllRules apply MkProgram(expressions)
 
     problems foreach (p => expectedProblems should contain (p))
   }
@@ -81,7 +82,7 @@ trait CheckVarSpec extends BaseSpec {
     val s1 = Sum(Number(2), Ref("one"))
     val expressions = List(v0, v1, s0, s1)
     val problems    = VarDeclaredButNeverUsedProblem(v0) :: VarDeclaredButNeverUsedProblem(v1) :: Nil
-    val expectedProblems = CheckAllRules(MkProgram(expressions))
+    val expectedProblems = CheckAllRules apply MkProgram(expressions)
 
     problems foreach (p => expectedProblems shouldNot contain (p))
   }
@@ -94,7 +95,7 @@ trait CheckVarSpec extends BaseSpec {
     val s1 = Subtraction(Number(2), Ref("one"))
     val expressions = List(v0, v1, s0, s1)
     val problems    = VarDeclaredButNeverUsedProblem(v0) :: VarDeclaredButNeverUsedProblem(v1) :: Nil
-    val expectedProblems = CheckAllRules(MkProgram(expressions))
+    val expectedProblems = CheckAllRules apply MkProgram(expressions)
 
     problems foreach (p => expectedProblems shouldNot contain (p))
   }
@@ -107,7 +108,7 @@ trait CheckVarSpec extends BaseSpec {
     val s1 = Division(Number(2), Ref("one"))
     val expressions = List(v0, v1, s0, s1)
     val problems    = VarDeclaredButNeverUsedProblem(v0) :: VarDeclaredButNeverUsedProblem(v1) :: Nil
-    val expectedProblems = CheckAllRules(MkProgram(expressions))
+    val expectedProblems = CheckAllRules apply MkProgram(expressions)
 
     problems foreach (p => expectedProblems shouldNot contain (p))
   }
@@ -121,32 +122,20 @@ trait CheckVarSpec extends BaseSpec {
     val s1 = Multiplication(Number(2), Ref("one"))
     val expressions = List(v0, v1, s0, s1)
     val problems    = VarDeclaredButNeverUsedProblem(v0) :: VarDeclaredButNeverUsedProblem(v1) :: Nil
-    val expectedProblems = CheckAllRules(MkProgram(expressions))
+    val expectedProblems = CheckAllRules apply MkProgram(expressions)
 
     problems foreach (p => expectedProblems shouldNot contain (p))
   }
 
-  //D. Detectar cuando variable se usa pero no esta asignada
-  it should " Variable declared unassigned" in {
+  // d. Detectar cuando variable se usa pero no esta asignada
+  it should "detect when a var is referenced but not assigned" in {
 
     val v = Var("foo")
-    val r = Ref("for")
-    val v0 = Var("zero", Number(0))
-    val expressions = List(v,r, v0)
-    val problems    = VarDeclaredNotUnassigned(v) :: Nil
-    val expectedProblems = CheckAllRules(MkProgram(expressions))
-
-    problems foreach (p => expectedProblems shouldNot contain (p))
-  }
-
-  it should " Reference not Valid  in " in  {
-
     val r = Ref("foo")
-    val t = Ref("fo")
-    val expressions = List(r)
-    val problems    = VarDeclaredReferenceNotValid(t):: Nil
-    val expectedProblems = CheckAllRules(MkProgram(expressions))
+    val problems    = VarUsedButNeverAssignedProblem(r) :: Nil
+    val expectedProblems = CheckAllRules apply MkProgram(List(v,r))
 
-    problems foreach (p => expectedProblems shouldNot contain (p))
+    problems foreach (p => expectedProblems should contain (p))
   }
+
 }
